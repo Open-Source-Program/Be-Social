@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Media, Form, Button } from 'react-bootstrap';
 
-export default function Content({ content }) {
+export default function Content({ eventmessages }) {
 
   // ====================== WHERE JEN'S NON-WORKING CODE BEGINS ======================
   // ====================== WHERE JEN'S NON-WORKING CODE BEGINS ======================
