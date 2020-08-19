@@ -179,7 +179,7 @@ function getAllEventsUsersMessages() {
   allEvents();
 }
 
-getAllEventsUsersMessages();
+// getAllEventsUsersMessages();
 
 
 module.exports = queries;

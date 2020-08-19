@@ -86,4 +86,13 @@ router.get('/events', // SWITCH THIS TO A GET REQUEST!!
   }
 )
 
+// ADD MESSAGES TO EVENT
+router.post('/message',
+  eventController.allEvents,
+  eventController.addMessage,
+  (req, res) => {
+    return res.status(200).json('User successfully added a comment');
+  }
+)
+
 module.exports = router;

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 export default function Event(props) {
-  console.log('Event ', props);
+  console.log('==========> Event from Event.jsx: ', props);
   return (
     <>
       <b className="hr anim"></b>
