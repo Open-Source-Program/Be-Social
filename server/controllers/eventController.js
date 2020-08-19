@@ -82,7 +82,7 @@ eventController.createEvent = (req, res, next) => {
   //   const queryValues = ['minchan birthday', '9/15/2020', '06:00 PM', '09:00 PM', 'golf course', 'play minigolf birthday', userid, username, "{'hey when is it again', 'happy birthday!', 'sorry can\'t make it'}"]
   //   db.query(queryString, queryValues)
   //     .then(data => {
-  let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = req.body;
+  let { eventid, eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = req.body;
   console.log('eventController.createEvent ', req.body);
   const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}"];
   db.query(queryString, queryValues)
@@ -231,25 +231,26 @@ eventController.allEvents = async (req, res, next) => {
     const attendees = await db.query(queryString2)
     const messages = await db.query(queryString3)
 
-    console.log('========> events.rows: ', events.rows);
-    console.log('========> attendees.rows: ', attendees.rows);
-    console.log('========> messages.rows: ', messages.rows);
+    // console.log('========> events.rows: ', events.rows);
+    // console.log('========> attendees.rows: ', attendees.rows);
+    // console.log('========> messages.rows: ', messages.rows);
 
     if (!events.rows) res.locals.allEventsInfo = [];
     else {
       events.rows.forEach((eventObj, i) => {
         const eventAttendeeList = attendees.rows.filter(userObj => userObj.eventid == eventObj.eventid);
-        console.log('eventAttendeeList: ', eventAttendeeList)
+        // console.log('eventAttendeeList: ', eventAttendeeList)
         eventObj.attendees = eventAttendeeList;
-        console.log('eventObj: ', eventObj)
+        // console.log('eventObj: ', eventObj)
 
         const eventMessageList = messages.rows.filter(messageObj => messageObj.eventtitle == eventObj.eventtitle);
-        console.log('eventMessageList: ', eventMessageList)
+        // console.log('eventMessageList: ', eventMessageList)
         eventObj.content = eventMessageList
-        console.log('eventObj: ', eventObj)
+        // console.log('eventObj: ', eventObj)
       })
       res.locals.allEventsInfo = events.rows;
-      console.log('events after insertion of attendees & messages: ', events.rows);
+      // console.log('events after insertion of attendees & messages: ', events.rows);
+      console.log('eventController.allEvents hit and moving on!')
     }
     return next();
   } catch (err) {
@@ -320,13 +321,41 @@ eventController.filterForUser = (req, res, next) => {
   const { userid } = res.locals.allUserInfo
 
   const filtered = res.locals.allEventsInfo.filter(event => event.attendees.some(attendee => attendee.userid === userid))
-  console.log("filtered", filtered)
+  console.log("eventController.filterForUser, filtered", filtered)
   res.locals.allEventsInfo = filtered;
   return next();
 }
 
-eventController.getMessages = (req, res, next) => {
+eventController.addMessage = (req, res, next) => {
+  // console.log('eventController.addMessage first line hit, req.body and req.query: ', req.body, req.query)
+  // console.log('eventController.addMessage first line hit!');
+  // console.log('eventController.addMessage req.body: ', req.body)
+  // console.log('eventController.addMessage req.query: ', req.query)
+  const eventtitle = req.query.eventtitle;
+  // console.log('eventController.addMessage eventtitle: ', eventtitle)
+  const { userid, username, eventid, messagetext, messagedate, messagetime } = req.body;
+  console.log('hihihi');
+  const time2 = new Date(Date.now()).toISOString().replace('T', ' ').replace('Z', '');
+  console.log(time2);
+  // const dateObj = new Date(messagetime);
+  // const converted = dateObj.toISOString();
+  console.log('ACTUAL TIME CONVERTED: ', time2);
+  const queryString = queries.addMessageToEvent;
+  const queryValues = [userid, username, eventid, eventtitle, messagetext, messagedate, time2];
 
+  console.log('I AM JENNIFER: ', queryValues);
+
+  db.query(queryString, queryValues)
+    .then(data => {
+      console.log('data from addMessage: ', data);
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.addMessageToEvent OR eventController.addMessage middleware: ${err}`,
+        message: { err: "An error occured with SQL adding a comment to an existing event." },
+      });
+    })
 };
 
 

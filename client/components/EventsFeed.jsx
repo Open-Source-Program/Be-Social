@@ -8,6 +8,7 @@ export default function EventsFeed(props) {
     events = props.events.map((event, index) => {
       return <Event
         {...event}
+        handleCreateMessage={props.handleCreateMessage}
         userUpdate={props.userUpdate}
         key={`EventsFeed${index}`}
       />
