@@ -6,6 +6,15 @@ const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
 
+//DELETE EVENT
+router.delete('/delete',
+  eventController.deleteEvent,
+  (req, res) => {
+    res.status(200).send('event deleted successfully!! yay.')
+  }
+)
+
+
 // EXISING USER LOGIN
 
 router.get('/login',

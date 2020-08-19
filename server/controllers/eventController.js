@@ -3,6 +3,24 @@ const queries = require("../utils/queries");
 const e = require("express");
 const eventController = {};
 
+// DELETE EVENT
+eventController.deleteEvent = (req,res,next) => {
+  const eventid = req.query.eventid
+  const queryString = `
+  DELETE FROM usersandevents WHERE eventid=${eventid};
+  DELETE FROM events WHERE eventid = ${eventid};
+  `
+  db.query(queryString)
+  .catch(err => {
+    return next({
+      log: `Error occurred with queries.deleteEvent OR eventController.deleteEvent middleware: ${err}`,
+      message: { err: "An error occured with SQL when retrieving events information." },
+    });
+  })
+  next();
+}
+
+
 eventController.getFullEvents = (req, res, next) => {
 
   const queryString = queries.userEvents;

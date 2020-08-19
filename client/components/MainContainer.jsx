@@ -8,12 +8,12 @@ import AddSearchEvent from './AddSearchEvent.jsx';
 
 export default function MainContainer() {
   // const [messages, setMessages] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [user, setUser] = useState({});
+  const [userName, setUserName] = useState(""); // email?
+  const [user, setUser] = useState({}); // actual name of user
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/info?userName=${userName}`)
+    axios.get(`/api/info?userName=${userName}`) // currently query is not in use (save for when we can visit other ppl's pages)
       .then((res) => {
         console.log('get request in mainContainer.jsx, res data: ', res.data);
         let userInfo = {

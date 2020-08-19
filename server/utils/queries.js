@@ -93,7 +93,7 @@ VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
 RETURNING eventid
 ;
 `;
-// let marcAttendingMinchanBirthday = [2, 'marcaburnie@gmail.com', 1, 'minchan birthday', '2020-09-15', '18:00:00', '21:00:00', 'play minigolf birthday', 'golf course'];
+// let marcAttendingMinchanBirthday = [2, 'marcaburnie@gmail.com', 4, 'minchan birthday', '2020-09-15', '18:00:00', '21:00:00', 'play minigolf birthday', 'golf course'];
 // db.query(queries.addUserToEvent, marcAttendingMinchanBirthday).then(data => console.log(data.rows));;
 
 
@@ -134,6 +134,12 @@ ON u.username=em.username
 // let minchanBirthdayEventTitle = ['Minchan Birthday'];
 // db.query(queries.selectEventComments, minchanBirthdayEventTitle).then(data => console.log(data.rows));
 
+// DELETE EVENT
+// queries.deleteEvent(eventid) = `
+// DELETE FROM usersandevents WHERE eventid=${eventid};
+// DELETE FROM events WHERE eventid = ${eventid};
+// `
+
 
 // CLEAR ALL TABLES & DATA
 queries.clearAll = `
@@ -142,42 +148,42 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
-function getAllEventsUsersMessages() {
-  const allEvents = async function (req, res, next) {
-    try {
-      const queryString1 = queries.getAllEvents;
-      const queryString2 = queries.getEventAllAttendees;
-      const queryString3 = queries.getEventMessages;
-      const events = await db.query(queryString1)
-      const attendees = await db.query(queryString2)
-      const messages = await db.query(queryString3)
+// function getAllEventsUsersMessages() {
+//   const allEvents = async function (req, res, next) {
+//     try {
+//       const queryString1 = queries.getAllEvents;
+//       const queryString2 = queries.getEventAllAttendees;
+//       const queryString3 = queries.getEventMessages;
+//       const events = await db.query(queryString1)
+//       const attendees = await db.query(queryString2)
+//       const messages = await db.query(queryString3)
 
-      console.log('========> events.rows: ', events.rows);
-      console.log('========> attendees.rows: ', attendees.rows);
-      console.log('========> messages.rows: ', messages.rows);
+//       console.log('========> events.rows: ', events.rows);
+//       console.log('========> attendees.rows: ', attendees.rows);
+//       console.log('========> messages.rows: ', messages.rows);
 
-      events.rows.forEach((eventObj, i) => {
-        const eventAttendeeList = attendees.rows.filter(userObj => userObj.eventid == eventObj.eventid);
-        console.log('eventAttendeeList: ', eventAttendeeList)
-        eventObj.attendees = eventAttendeeList;
-        console.log('eventObj: ', eventObj)
+//       events.rows.forEach((eventObj, i) => {
+//         const eventAttendeeList = attendees.rows.filter(userObj => userObj.eventid == eventObj.eventid);
+//         console.log('eventAttendeeList: ', eventAttendeeList)
+//         eventObj.attendees = eventAttendeeList;
+//         console.log('eventObj: ', eventObj)
 
-        const eventMessageList = messages.rows.filter(messageObj => messageObj.eventtitle == eventObj.eventtitle);
-        console.log('eventMessageList: ', eventMessageList)
-        eventObj.content = eventMessageList
-        console.log('eventObj: ', eventObj)
-      })
+//         const eventMessageList = messages.rows.filter(messageObj => messageObj.eventtitle == eventObj.eventtitle);
+//         console.log('eventMessageList: ', eventMessageList)
+//         eventObj.content = eventMessageList
+//         console.log('eventObj: ', eventObj)
+//       })
 
-      console.log('events after insertion of attendees & messages: ', events.rows);
-      // res.locals.allEventsInfo = events.rows;
-      // console.log("res.locals.allEventsInfo", res.locals.allEventsInfo)
-      return events.rows;
-    } catch (err) {
-      console.log(err);
-    };
-  }
-  allEvents();
-}
+//       console.log('events after insertion of attendees & messages: ', events.rows);
+//       // res.locals.allEventsInfo = events.rows;
+//       // console.log("res.locals.allEventsInfo", res.locals.allEventsInfo)
+//       return events.rows;
+//     } catch (err) {
+//       console.log(err);
+//     };
+//   }
+//   allEvents();
+// }
 
 // getAllEventsUsersMessages();
 
