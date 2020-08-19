@@ -96,6 +96,7 @@ export default function Content(props) {
     document.getElementsByName('comment-form')[0].reset();
 
     props.handleCreateMessage(newContent);
+    window.location.reload(true);
   }
 
   return (

@@ -87,6 +87,7 @@ export default function MainContainer() {
     const newEvents = [event].concat(events);
     console.log("updated event with messages:", newEvents);
     setEvents(newEvents);
+    window.location.reload(true);
   }
 
   function handleSearchEvent(event) {
