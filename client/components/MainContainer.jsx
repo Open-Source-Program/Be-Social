@@ -103,10 +103,10 @@ export default function MainContainer() {
             profilephoto: user.profilephoto
           });
         event.content.push({
-          username: events.content.username,
-          profilephoto: events.content.profilephoto,
-          text: events.content.messagetext,
-          time: events.content.messagetime,
+          username: event.content.username,
+          profilephoto: event.content.profilephoto,
+          text: event.content.messagetext,
+          time: event.content.messagetime,
         });
         const newEvents = [event].concat(events);
         console.log("updated events:", newEvents);
@@ -121,6 +121,7 @@ export default function MainContainer() {
     // const newEvents = [event].concat(events);
     // console.log("updated events:", newEvents);
     // setEvents(newEvents);
+    window.location.reload(true);
   }
 
   return (
