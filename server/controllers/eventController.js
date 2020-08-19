@@ -91,7 +91,6 @@ eventController.createEvent = (req, res, next) => {
       .then(data => {
         console.log('>>> eventController.createEvent DATA ', data);
         // data.rows: [ { eventid: 11 } ],
-        // data.rows: [ { eventtitle: xxxx } ],
         res.locals.eventTitle = data.rows[0];
         return next();
       })
@@ -274,6 +273,7 @@ Needed to use the req.cookie.user_id in order to determine which user is current
 // ==================== RECIPE API END ====================
 
 eventController.createCooking = async (req, res, next) => {
+
   console.log('eventController.createCooking: req.body: ', req.body);
   console.log('eventController.createCooking: req.query: ', req.query);
   const { eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventtype } = req.body;
@@ -284,6 +284,8 @@ eventController.createCooking = async (req, res, next) => {
   console.log('eventController.createCooking: eventstarttime: ', eventstarttime);
   console.log('eventController.createCooking: eventdetails: ', eventdetails);
 
+  res.locals.eventTitle = {};
+  res.locals.eventTitle.eventtitle = eventtitle;
 
   if (eventtype == "calendar") return next();
   if (eventtype == "cooking") {
@@ -306,30 +308,16 @@ eventController.createCooking = async (req, res, next) => {
           const num = Math.floor(Math.random() * data.length);
           console.log('createCooking number randomizer: ', num)
           res.locals.recipe = data[num];
-          // data.rows: [ { eventid: 11 } ],
-          // CHANGED THIS TO EVENTTITLE
-          res.locals.eventTitle = eventtitle;
         })
         .catch((err) => console.log(err));
       console.log('======> eventController.createCooking res.locals.recipe: ', res.locals.recipe);
       const { id, title, image, usedIngredients } = res.locals.recipe;
       const recipeid = id;
-      // const ingredientids = [{ id, names, images }];
-      // const ingredientnames = [];
-      // const ingredientimages = [];
-
-      // create a container array
       let ingredientList = [];
 
       usedIngredients.forEach(ingredientObj => {
         const { id, name, image } = ingredientObj;
-
-        let eachIngredient = {
-          name,
-          id,
-          image
-        };
-
+        let eachIngredient = { name, id, image };
         // push this into the container from above
         ingredientList.push(eachIngredient);
       });
@@ -378,36 +366,11 @@ eventController.createCooking = async (req, res, next) => {
   }
 };
 
-// eventController.createCooking();
-
-// ==================== CREATE NEW COOKING EVENT JOIN TABLE ENTRY
-// ==================== CREATE NEW COOKING EVENT JOIN TABLE ENTRY
-// ==================== CREATE NEW COOKING EVENT JOIN TABLE ENTRY
-// ==================== CREATE NEW COOKING EVENT JOIN TABLE ENTRY
-// eventController.addCookingEventToJoinTable = (req, res, next) => {
-//   console.log('eventController.addNewEventToJoinTable')
-//   const queryString = queries.addNewEventToJoinTable;
-//   // const queryValues = [res.locals.eventID.eventid] // changed this to eventtitle
-//   const queryValues = [res.locals.eventTitle.eventtitle] // changed this to eventtitle
-//   db.query(queryString, queryValues)
-//     .then(data => {
-//       // WE DON'T ACTUALLY USE THIS ANYWHERE - FOR DEBUGGING AND TESTING ONLY
-//       res.locals.usersandevents = data.rows[0];
-//       return next();
-//     })
-//     .catch(err => {
-//       console.log('>>> eventController.addNewEventToJoinTable ERR', err);
-//       return next({
-//         log: `Error occurred with queries.addtoUsersAndEvents OR eventController.addNewEventToJoinTable middleware: ${err}`,
-//         message: { err: "An error occured with SQL when adding to addtoUsersAndEvents table." },
-//       });
-//     })
-// };
-
 eventController.addNewEventToJoinTable = (req, res, next) => {
   console.log('eventController.addNewEventToJoinTable')
   const queryString = queries.addNewEventToJoinTable;
   // const queryValues = [res.locals.eventID.eventid] // changed this to eventtitle
+  console.log('eventController.addNewEventToJoinTable res.locals.eventTitle.eventtitle', res.locals.eventTitle.eventtitle) // changed this to eventtitle
   const queryValues = [res.locals.eventTitle.eventtitle] // changed this to eventtitle
   db.query(queryString, queryValues)
     .then(data => {
