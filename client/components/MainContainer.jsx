@@ -133,6 +133,7 @@ export default function MainContainer() {
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
         </Container>
         <EventsFeed
+          setEvents = {setEvents}
           handleCreateMessage={handleCreateMessage}
           events={events}
           userUpdate={handleUserPageChange}

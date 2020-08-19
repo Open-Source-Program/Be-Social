@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import EventAttendees from './EventAttendees.jsx';
 import Content from './Content.jsx';
-import { ListGroup, Container, Row, Jumbotron } from 'react-bootstrap';
+import { ListGroup, Container, Row, Jumbotron, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
+import axios from "axios";
 
 export default function Event(props) {
   console.log('==========> Event from Event.jsx: ', props);
+
+
   return (
     <>
       <b className="hr anim"></b>
@@ -20,7 +23,11 @@ export default function Event(props) {
               <p>{props.eventdetails}</p>
             </Container>
           </Jumbotron>
-
+          <Container className='deleteBtn'>
+            <Button className='float-right' variant="secondary" type="submit" onClick={() => { props.handleDeleteEvent(props.eventid, props.index) }}>
+              Delete
+            </Button>
+          </Container>
           <Container>
             <EventAttendees
               {...props}
