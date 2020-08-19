@@ -29,6 +29,7 @@ export default function CreateEvent({ addEvent }) {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
 
+  console.log('CreateEvent.jsx: ', dateTime2);
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -59,11 +60,14 @@ export default function CreateEvent({ addEvent }) {
 
   const handleSubmit2 = (e) => {
     e.preventDefault()
-    const eventdate2 = dateTime2.toDateString();
-    let time2 = dateTime2.toTimeString();
-    let eventstarttime2 = time2.split(" ")[0];
+    const eventdate = dateTime2.toDateString();
+    console.log('=========> CreateEvent.jsx eventdate: ', eventdate)
+    let time = dateTime2.toTimeString();
+    console.log('=========> CreateEvent.jsx time: ', time)
+    let eventstarttime = time.split(" ")[0];
+    console.log('=========> CreateEvent.jsx eventstarttime: ', eventstarttime)
     // ... submit to API or something
-    addEvent({ ...formData2, eventdate2, eventstarttime2 });
+    addEvent({ ...formData2, eventdate, eventstarttime });
     handleClose2();
   };
 

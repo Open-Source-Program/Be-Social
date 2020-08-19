@@ -277,8 +277,14 @@ eventController.createCooking = async (req, res, next) => {
   console.log('eventController.createCooking: req.body: ', req.body);
   console.log('eventController.createCooking: req.query: ', req.query);
   const { eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventtype } = req.body;
+  console.log('eventController.createCooking: eventtitle ', eventtitle);
   console.log('eventController.createCooking: eventtype: ', eventtype);
   console.log('eventController.createCooking: ingredient: ', eventlocation);
+  console.log('eventController.createCooking: eventdate: ', eventdate);
+  console.log('eventController.createCooking: eventstarttime: ', eventstarttime);
+  console.log('eventController.createCooking: eventdetails: ', eventdetails);
+
+
   if (eventtype == "calendar") return next();
   if (eventtype == "cooking") {
     const ingredient = eventlocation.trim();
@@ -295,6 +301,7 @@ eventController.createCooking = async (req, res, next) => {
       })
         .then((data) => data.json())
         .then((data) => {
+          console.log("result data.length", data.length);
           console.log("result data", data);
           const num = Math.floor(Math.random() * data.length);
           console.log('createCooking number randomizer: ', num)
@@ -345,6 +352,9 @@ eventController.createCooking = async (req, res, next) => {
       }
 
       const queryString3 = queries.createEvent;
+
+
+      // (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages, eventtype)
       const queryValues3 = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}", eventtype];
       await db.query(queryString3, queryValues3)
         .then(data => {
