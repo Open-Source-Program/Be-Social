@@ -3,6 +3,16 @@ const queries = require("../utils/queries");
 const e = require("express");
 const eventController = {};
 
+
+eventController.updateEvents = (req, res, next) => {
+
+}
+
+eventController.deleteEvents = (req, res, next) => {
+
+
+}
+
 eventController.getFullEvents = (req, res, next) => {
 
   const queryString = queries.userEvents;
