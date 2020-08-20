@@ -137,6 +137,13 @@ body {
   justify-self: center;
 }
 
+.projectName {
+  font-family: 'Baumans';
+  font-size: 50px;
+  background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(77, 77, 77));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 span{
 	margin: 0 15px;
 	line-height: 40px;
@@ -149,11 +156,9 @@ span{
   justify-content: center;
   justify-self: center;
   text-align: center;
-  font-family: 'Baumans';
-  font-size: 35px;
-  background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(77, 77, 77));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  // font-family: 'Baumans';
+  color: black;
+
 }
 .main{
 	display: flex;

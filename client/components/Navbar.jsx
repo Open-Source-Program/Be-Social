@@ -21,15 +21,15 @@ export default function Notnav() {
         </Nav>
         <Nav>
           <div className="social">
-            <span>b</span>
-            <span>e</span>
-            <span> </span>
-            <span>s</span>
+            <span className="projectName">b</span>
+            <span className="projectName">e</span>
+            <span className="projectName"> </span>
+            <span className="projectName">s</span>
             <span className="letter"></span>
-            <span>c</span>
-            <span>i</span>
-            <span>a</span>
-            <span>l</span>
+            <span className="projectName">c</span>
+            <span className="projectName">i</span>
+            <span className="projectName">a</span>
+            <span className="projectName">l</span>
           </div>
         </Nav>
         <Nav>
