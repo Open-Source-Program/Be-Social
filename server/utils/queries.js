@@ -47,13 +47,13 @@ RETURNING username
 
 
 
-
+// CHANGED THIS TO EVENTTITLE
 // QUERY FOR WHEN USER CREATES EVENT 
 queries.createEvent = `
 INSERT INTO events
-  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages)
-VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
-RETURNING eventid
+  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages, eventtype)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+RETURNING eventtitle
 ;
 `;
 
@@ -68,11 +68,12 @@ RETURNING eventid
 
 
 
+// CHANGED THIS TO EVENTTITLE
 // ADDS ALL CURRENT EVENTS TO USERSANDEVENTS
 queries.addNewEventToJoinTable = `
 INSERT INTO usersandevents (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
 SELECT eventownerid, eventownerusername, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation FROM events
-WHERE eventid=$1
+WHERE eventtitle=$1
 RETURNING usersandevents;
 `;
 // ====================== FOR TESTING ONLY ======================
@@ -140,6 +141,22 @@ queries.clearAll = `
 DROP TABLE usersandevents;
 DROP TABLE events;
 DROP TABLE users;
+`;
+
+
+queries.saveRecipe = `
+INSERT INTO recipes (recipename, recipeid, recipeimage)
+VALUES ($1, $2, $3)
+RETURNING recipename
+`;
+queries.saveIngredients = `
+INSERT INTO ingredients (ingredientname, ingredientid, ingredientimage, recipeid)
+VALUES ($1, $2, $3, $4)
+RETURNING ingredientname
+`;
+queries.getRecipeIngredients = `
+SELECT * FROM ingredients
+WHERE recipeid=$1
 `;
 
 function getAllEventsUsersMessages() {

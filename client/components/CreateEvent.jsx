@@ -12,21 +12,24 @@ export default function CreateEvent({ addEvent }) {
     eventtitle: "",
     eventlocation: "",
     eventdetails: "",
+    eventtype: "calendar"
   });
 
   const initialFormData2 = Object.freeze({
-    cookingtitle: "",
-    ingredients: "",
+    eventtitle: "",
+    eventlocation: "",
     eventdetails: "",
+    eventtype: "cooking"
   });
 
-  const [formData, updateFormData] = React.useState(initialFormData);
-  const [formData2, updateFormData2] = React.useState(initialFormData2);
+  const [formData, updateFormData] = useState(initialFormData);
+  const [formData2, updateFormData2] = useState(initialFormData2);
   const [dateTime, onChange] = useState(new Date());
   const [dateTime2, onChange2] = useState(new Date());
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
 
+  console.log('CreateEvent.jsx: ', dateTime2);
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -57,11 +60,14 @@ export default function CreateEvent({ addEvent }) {
 
   const handleSubmit2 = (e) => {
     e.preventDefault()
-    const eventdate2 = dateTime2.toDateString();
-    let time2 = dateTime2.toTimeString();
-    let eventstarttime2 = time2.split(" ")[0];
+    const eventdate = dateTime2.toDateString();
+    console.log('=========> CreateEvent.jsx eventdate: ', eventdate)
+    let time = dateTime2.toTimeString();
+    console.log('=========> CreateEvent.jsx time: ', time)
+    let eventstarttime = time.split(" ")[0];
+    console.log('=========> CreateEvent.jsx eventstarttime: ', eventstarttime)
     // ... submit to API or something
-    addEvent({ ...formData2, eventdate2, eventstarttime2 });
+    addEvent({ ...formData2, eventdate, eventstarttime });
     handleClose2();
   };
 
@@ -98,12 +104,12 @@ export default function CreateEvent({ addEvent }) {
           <Form>
             <Form.Group controlId="formECookingventTitle">
               <Form.Label>Cooking Event Title</Form.Label>
-              <Form.Control name='cookingtitle' onChange={handleChange2} required type="text" placeholder="Enter title" />
+              <Form.Control name='eventtitle' onChange={handleChange2} required type="text" placeholder="Enter title" />
             </Form.Group>
 
             <Form.Group controlId="formIngredients">
               <Form.Label>Ingredients</Form.Label>
-              <Form.Control name='ingredients' onChange={handleChange2} required type="text" placeholder="Enter ingredient here" />
+              <Form.Control name='eventlocation' onChange={handleChange2} required type="text" placeholder="Enter ingredient here" />
             </Form.Group>
 
             <Form.Group controlId="formEventDescription">
@@ -117,6 +123,11 @@ export default function CreateEvent({ addEvent }) {
                 onChange={onChange2}
                 value={dateTime2}
               />
+            </Form.Group>
+
+            <Form.Group controlId="formEventType">
+              <Form.Label>Event Type</Form.Label>
+              <Form.Control name='eventtype' value="Cooking Event" />
             </Form.Group>
 
             <Button variant="primary" type="submit" onClick={(e) => { handleSubmit2(e) }}>
@@ -153,6 +164,11 @@ export default function CreateEvent({ addEvent }) {
                 onChange={onChange}
                 value={dateTime}
               />
+            </Form.Group>
+
+            <Form.Group controlId="formEventType">
+              <Form.Label>Event Type</Form.Label>
+              <Form.Control name='eventtype' value="Calendar Event" />
             </Form.Group>
 
             <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e) }}>

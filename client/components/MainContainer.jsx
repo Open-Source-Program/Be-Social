@@ -36,8 +36,14 @@ export default function MainContainer() {
   }
 
   function handleCreateEvent(event) {
-    let { eventid, eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = event;
-    axios.post(`/api/create?userName=${userName}`, { eventid, eventtitle, eventlocation, eventdate, eventstarttime, eventdetails })
+    let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, eventtype } = event;
+    console.log('MainContainer.jsx eventtitle: ', eventtitle)
+    console.log('MainContainer.jsx eventlocation OR INGREDIENT: ', eventlocation)
+    console.log('MainContainer.jsx eventtype: ', eventtype)
+    console.log('MainContainer.jsx eventdate: ', eventdate)
+    console.log('MainContainer.jsx eventstarttime: ', eventstarttime)
+    console.log('MainContainer.jsx eventdetails: ', eventdetails)
+    axios.post(`/api/create?userName=${userName}`, { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, eventtype })
       .then((res) => {
         console.log(res.data);
         // let userInfo = {
@@ -84,10 +90,10 @@ export default function MainContainer() {
       messagedate: messagedate,
       messagetime: messagetime,
     }];
-    const newEvents = [event].concat(events);
-    console.log("updated event with messages:", newEvents);
-    setEvents(newEvents);
-    window.location.reload(true);
+    // const newEvents = [event].concat(events);
+    // console.log("updated event with messages:", newEvents);
+    // setEvents(newEvents);
+    // window.location.reload(true);
   }
 
   function handleSearchEvent(event) {
