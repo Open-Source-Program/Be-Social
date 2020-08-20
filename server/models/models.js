@@ -1,7 +1,7 @@
 const pg = require('pg');
 pg.defaults.poolSize = 100;
 
-const PG_URI = 'postgres://kyvtwizd:fVABvmKeENO7jTd3IBKj1PiIcNyVylqD@raja.db.elephantsql.com:5432/kyvtwizd';
+const PG_URI = 'postgres://ppcjglzg:Fu6P575I_hpm8tPd1-Wt3JBtNj92_vRx@drona.db.elephantsql.com:5432/ppcjglzg';
 
 const pool = new pg.Pool({
   connectionString: PG_URI,
