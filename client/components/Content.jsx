@@ -63,7 +63,7 @@ export default function Content(props) {
   console.log('=========> Content.jsx props: ', props)
   const [cont, setCont] = useState(props.content);
   console.log('=========> Content.jsx cont: ', cont)
-  console.log('=========> Content.jsx cont.length: ', cont.length)
+  // console.log('=========> Content.jsx cont.length: ', cont.length)
   const [comment, setComment] = useState("")
   // let [messages, setMessages] = useState([]);
 

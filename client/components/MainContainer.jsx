@@ -8,12 +8,12 @@ import AddSearchEvent from './AddSearchEvent.jsx';
 
 export default function MainContainer() {
   // const [messages, setMessages] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [user, setUser] = useState({});
+  const [userName, setUserName] = useState(""); // email?
+  const [user, setUser] = useState({}); // actual name of user
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/info?userName=${userName}`)
+    axios.get(`/api/info?userName=${userName}`) // currently query is not in use (save for when we can visit other ppl's pages)
       .then((res) => {
         console.log('get request in mainContainer.jsx, res data: ', res.data);
         let userInfo = {
@@ -109,12 +109,15 @@ export default function MainContainer() {
             lastname: user.lastname,
             profilephoto: user.profilephoto
           });
-        event.content.push({
-          username: events.content.username,
-          profilephoto: events.content.profilephoto,
-          text: events.content.messagetext,
-          time: events.content.messagetime,
-        });
+        if (!events.content) event.content = [];
+        else {
+          event.content.push({
+            username: events.content.username,
+            profilephoto: events.content.profilephoto,
+            text: events.content.messagetext,
+            time: events.content.messagetime,
+          });
+        };
         const newEvents = [event].concat(events);
         console.log("updated events:", newEvents);
         setEvents(newEvents);
@@ -139,6 +142,7 @@ export default function MainContainer() {
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
         </Container>
         <EventsFeed
+          setEvents = {setEvents}
           handleCreateMessage={handleCreateMessage}
           events={events}
           userUpdate={handleUserPageChange}

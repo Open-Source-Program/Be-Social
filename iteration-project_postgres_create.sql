@@ -58,7 +58,7 @@ CREATE TABLE events
     FOREIGN KEY ( userid ) REFERENCES users ( userid ),
     FOREIGN KEY ( username ) REFERENCES users( username ),
     FOREIGN KEY ( eventid ) REFERENCES events ( eventid ),
-    FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle )
+    FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle ) ON UPDATE CASCADE
   );
   SELECT setval('usersandevents_uselessid_seq', 1, false);
 
@@ -76,7 +76,7 @@ CREATE TABLE events
     FOREIGN KEY ( userid ) REFERENCES users ( userid ),
     FOREIGN KEY ( username ) REFERENCES users ( username ),
     FOREIGN KEY ( eventid ) REFERENCES events ( eventid ),
-    FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle )
+    FOREIGN KEY ( eventtitle ) REFERENCES events ( eventtitle ) ON UPDATE CASCADE
   );
   SELECT setval('eventsandmessages_uselessid_seq', 1, false);
 

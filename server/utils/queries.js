@@ -45,6 +45,9 @@ RETURNING username
 // let addMarc = ['marcaburnie@gmail.com', 'marc', 'burnie', 'photo TBD'];
 // db.query(queries.addUser, addMarc).then(data => console.log(data.rows));
 
+// let addTaylor = ['taylorsriley@gmail.com', 'Taylor', 'RileyDu', 'photo TBD'];
+// db.query(queries.addUser, addTaylor).then(data => console.log(data.rows));
+
 
 
 // CHANGED THIS TO EVENTTITLE
@@ -94,8 +97,14 @@ VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
 RETURNING eventid
 ;
 `;
-// let marcAttendingMinchanBirthday = [2, 'marcaburnie@gmail.com', 1, 'minchan birthday', '2020-09-15', '18:00:00', '21:00:00', 'play minigolf birthday', 'golf course'];
+// let marcAttendingMinchanBirthday = [2, 'marcaburnie@gmail.com', 4, 'minchan birthday', '2020-09-15', '18:00:00', '21:00:00', 'play minigolf birthday', 'golf course'];
 // db.query(queries.addUserToEvent, marcAttendingMinchanBirthday).then(data => console.log(data.rows));;
+
+// let taylorAttendingEvent = [2, 'taylorsriley@gmail.com', 1, 'minchan birthday', '2020-09-15', '18:00:00', '21:00:00', 'play minigolf birthday', 'golf course'];
+// db.query(queries.addUserToEvent, taylorAttendingEvent).then(data => console.log(data.rows));;
+
+// let TaylorminchanWedding = [4, 'taylorsriley@gmail.com', 2, 'minchan wedding', '10/1/2020', '02:00 PM', '03:00 PM', 'castle', 'attend wedding', 1, 'minchanjun@gmail.com', "{'so excited for your wedding!', 'loving the location', 'sorry can\'t make it'}"]
+// db.query(queries.addUserToEvent, TaylorminchanWedding).then(data => console.log(data.rows));;
 
 
 // GRAB EVENT'S ATTENDEES
@@ -112,7 +121,7 @@ VALUES($1, $2, $3, $4, $5, $6, $7)
 RETURNING eventsandmessages
 `;
 
-// let marcCommentingOnMinchanBday = [2, 'marcaburnie@gmail.com', 1, 'minchan birthday', 'happy birthday dude, from marc', '2020-08-17', '05:00:01']
+// let marcCommentingOnMinchanBday = [3, 'marcaburnie@gmail.com', 1, 'minchan birthday', 'happy birthday dude, from marc', '2020-08-17', '05:00:01']
 // db.query(queries.addMessageToEvent, marcCommentingOnMinchanBday)
 
 // let minchanCommentingOnMinchanBday = [1, 'minchanjun@gmail.com', 1, 'minchan birthday', 'so excited to see everyone at my birthday', '2020-08-18', '10:00:01']
@@ -134,6 +143,12 @@ ON u.username=em.username
 // WHERE em.eventtitle=$1
 // let minchanBirthdayEventTitle = ['Minchan Birthday'];
 // db.query(queries.selectEventComments, minchanBirthdayEventTitle).then(data => console.log(data.rows));
+
+// DELETE EVENT
+// queries.deleteEvent(eventid) = `
+// DELETE FROM usersandevents WHERE eventid=${eventid};
+// DELETE FROM events WHERE eventid = ${eventid};
+// `
 
 
 // CLEAR ALL TABLES & DATA

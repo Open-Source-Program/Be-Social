@@ -7,6 +7,24 @@ const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
 const fbController = require('../controllers/fbController');
 
+//DELETE EVENT
+router.delete('/delete',
+  eventController.deleteEvent,
+  (req, res) => {
+    res.status(200).send('event deleted successfully!! yay.')
+  }
+)
+
+//UPDATE EVENT
+router.put('/update',
+  eventController.updateEvent, 
+  (req, res) => {
+    // res.status(200).json(res.locals.updatedEvent);
+    res.status(200).send('success');
+  }
+);
+
+// EXISING USER LOGIN
 /* FACEBOOK OAUTH LOGIN */
 
 router.get('/loginFB',
