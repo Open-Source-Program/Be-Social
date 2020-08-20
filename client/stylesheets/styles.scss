@@ -97,6 +97,21 @@ body {
   cursor: pointer;
 }
 
+.navSignOut {
+  color: gray;
+  border: 1px solid gray;
+  margin: 8px;
+  border-radius: 20px;
+}
+
+.navSignOut:hover, .navSignOut:focus, .navSignOut:active {
+  background: radial-gradient(ellipse at left, gray, transparent),
+            radial-gradient(ellipse at right, lightgray, transparent);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 .iconarea {
   display: flex;
   flex-direction: column;
