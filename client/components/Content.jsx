@@ -119,7 +119,7 @@ export default function Content(props) {
           <Form.Label>Add a Comment:</Form.Label>
           <Form.Control as="textarea" rows="2" onChange={handleChange} />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
+        <Button id="submit" variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
           Submit
         </Button>
       </Form>

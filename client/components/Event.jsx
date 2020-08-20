@@ -18,27 +18,24 @@ export default function Event(props) {
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
-              <h4>{props.eventdate} - {props.starttime}</h4>
-              <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
+              <h3>{props.eventdate} - {props.starttime}</h3>
+              <h5>{props.eventlocation}</h5>
               <p>{props.eventdetails}</p>
             </Container>
-          </Jumbotron>
-          <Container className='updateBtn'>
-            <Button className='float-right' variant="secondary" type="submit" onClick={() => { props.handleUpdateEvent(props.eventObj, props.index) }}>
+            <Button id='update' variant="secondary" type="submit" onClick={() => { props.handleUpdateEvent(props.eventObj, props.index) }}>
               Update
             </Button>
-          </Container>
-          <Container className='deleteBtn'>
-            <Button className='float-right' variant="secondary" type="submit" onClick={() => { props.handleDeleteEvent(props.eventid, props.index) }}>
+            <Button id='delete' variant="secondary" type="submit" onClick={() => { props.handleDeleteEvent(props.eventid, props.index) }}>
               Delete
             </Button>
-          </Container>
-          <Container>
-            <EventAttendees
+          </Jumbotron>
+
+          <div className="attendees">
+            <EventAttendees className="attendeelist"
               {...props}
               userUpdate={props.userUpdate}
             />
-          </Container>
+          </div>
           <Content {...props} />
         </Container>
       </div>
