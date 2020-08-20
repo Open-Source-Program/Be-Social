@@ -68,7 +68,7 @@ export default function Content(props) {
   // let [messages, setMessages] = useState([]);
 
   let messages = [];
-  if (cont.length) {
+  if (cont && cont.length) {
     messages = cont.map((message, index) => {
       return (
         <div className="messageBox" key={`Content${index}`}>

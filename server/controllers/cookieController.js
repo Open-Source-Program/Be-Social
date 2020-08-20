@@ -1,6 +1,13 @@
 const cookieController = {};
 
-cookieController.setSSIDCookie = (req, res, next) => {
+cookieController.setGoogleCookie = (req, res, next) => {
+  res.cookie('provider', 'google', { httpOnly: true })
+  res.cookie('user', res.locals.token, { httpOnly: true });
+  return next();
+};
+
+cookieController.setFacebookCookie = (req, res, next) => {
+  res.cookie('provider', 'facebook', { httpOnly: true })
   res.cookie('user', res.locals.token, { httpOnly: true });
   return next();
 };
@@ -18,6 +25,7 @@ cookieController.isLoggedIn = (req, res, next) => {
 };
 
 cookieController.removeCookie = (req, res, next) => {
+  res.clearCookie('provider');
   res.clearCookie('user');
   return next();
 }

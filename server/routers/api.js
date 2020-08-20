@@ -5,28 +5,38 @@ const fileController = require('../controllers/fileController');
 const cookieController = require('../controllers/cookieController');
 const eventController = require('../controllers/eventController');
 const loginController = require('../controllers/loginController');
+const fbController = require('../controllers/fbController');
 
-// EXISING USER LOGIN
+/* FACEBOOK OAUTH LOGIN */
 
-router.get('/login',
-  loginController.oAuth,
+router.get('/loginFB',
+  fbController.oAuth,
   (req, res) => {
-    // res.send('ok');
-    return res.redirect(res.locals.url)
+    return res.redirect(res.locals.url);
   });
 
-router.get('/login/google',
-  loginController.afterConsent,
-  cookieController.setSSIDCookie,
-  fileController.createUser, // if username already exists, return next() => getUser // if not, create user in SQL database
-  // fileController.getUser,
-  // eventController.getFullEvents,
+router.get('/login/FB',
+  fbController.afterConsent,
+  cookieController.setFacebookCookie,
+  fileController.createUser,
   (req, res) => {
-    // const responseObj = {
-    //   users: res.locals.allUserInfo,
-    //   events: res.locals.allEventsInfo
-    // };
-    return res.redirect('http://localhost:8080/')
+    return res.redirect('/');
+  });
+
+/* GOOGLE OAUTH LOGIN */
+
+router.get('/loginG',
+  loginController.oAuth,
+  (req, res) => {
+    return res.redirect(res.locals.url);
+  });
+
+router.get('/login/G',
+  loginController.afterConsent,
+  cookieController.setGoogleCookie,
+  fileController.createUser,
+  (req, res) => {
+    return res.redirect('/');
   });
 
 // REVISIT WEBSITE AFTER LEAVING, OR VISITING SOMEONE ELSE'S PROFILE PAGE
