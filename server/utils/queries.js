@@ -50,13 +50,13 @@ RETURNING username
 
 
 
-
+// CHANGED THIS TO EVENTTITLE
 // QUERY FOR WHEN USER CREATES EVENT 
 queries.createEvent = `
 INSERT INTO events
-  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages)
-VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
-RETURNING eventid
+  (eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventownerid, eventownerusername, eventmessages, eventtype)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+RETURNING eventtitle
 ;
 `;
 
@@ -71,11 +71,12 @@ RETURNING eventid
 
 
 
+// CHANGED THIS TO EVENTTITLE
 // ADDS ALL CURRENT EVENTS TO USERSANDEVENTS
 queries.addNewEventToJoinTable = `
 INSERT INTO usersandevents (userid, username, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation)
 SELECT eventownerid, eventownerusername, eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventdetails, eventlocation FROM events
-WHERE eventid=$1
+WHERE eventtitle=$1
 RETURNING usersandevents;
 `;
 // ====================== FOR TESTING ONLY ======================
@@ -157,42 +158,58 @@ DROP TABLE events;
 DROP TABLE users;
 `;
 
-// function getAllEventsUsersMessages() {
-//   const allEvents = async function (req, res, next) {
-//     try {
-//       const queryString1 = queries.getAllEvents;
-//       const queryString2 = queries.getEventAllAttendees;
-//       const queryString3 = queries.getEventMessages;
-//       const events = await db.query(queryString1)
-//       const attendees = await db.query(queryString2)
-//       const messages = await db.query(queryString3)
 
-//       console.log('========> events.rows: ', events.rows);
-//       console.log('========> attendees.rows: ', attendees.rows);
-//       console.log('========> messages.rows: ', messages.rows);
+queries.saveRecipe = `
+INSERT INTO recipes (recipename, recipeid, recipeimage)
+VALUES ($1, $2, $3)
+RETURNING recipename
+`;
+queries.saveIngredients = `
+INSERT INTO ingredients (ingredientname, ingredientid, ingredientimage, recipeid)
+VALUES ($1, $2, $3, $4)
+RETURNING ingredientname
+`;
+queries.getRecipeIngredients = `
+SELECT * FROM ingredients
+WHERE recipeid=$1
+`;
 
-//       events.rows.forEach((eventObj, i) => {
-//         const eventAttendeeList = attendees.rows.filter(userObj => userObj.eventid == eventObj.eventid);
-//         console.log('eventAttendeeList: ', eventAttendeeList)
-//         eventObj.attendees = eventAttendeeList;
-//         console.log('eventObj: ', eventObj)
+function getAllEventsUsersMessages() {
+  const allEvents = async function (req, res, next) {
+    try {
+      const queryString1 = queries.getAllEvents;
+      const queryString2 = queries.getEventAllAttendees;
+      const queryString3 = queries.getEventMessages;
+      const events = await db.query(queryString1)
+      const attendees = await db.query(queryString2)
+      const messages = await db.query(queryString3)
 
-//         const eventMessageList = messages.rows.filter(messageObj => messageObj.eventtitle == eventObj.eventtitle);
-//         console.log('eventMessageList: ', eventMessageList)
-//         eventObj.content = eventMessageList
-//         console.log('eventObj: ', eventObj)
-//       })
+      console.log('========> events.rows: ', events.rows);
+      console.log('========> attendees.rows: ', attendees.rows);
+      console.log('========> messages.rows: ', messages.rows);
 
-//       console.log('events after insertion of attendees & messages: ', events.rows);
-//       // res.locals.allEventsInfo = events.rows;
-//       // console.log("res.locals.allEventsInfo", res.locals.allEventsInfo)
-//       return events.rows;
-//     } catch (err) {
-//       console.log(err);
-//     };
-//   }
-//   allEvents();
-// }
+      events.rows.forEach((eventObj, i) => {
+        const eventAttendeeList = attendees.rows.filter(userObj => userObj.eventid == eventObj.eventid);
+        console.log('eventAttendeeList: ', eventAttendeeList)
+        eventObj.attendees = eventAttendeeList;
+        console.log('eventObj: ', eventObj)
+
+        const eventMessageList = messages.rows.filter(messageObj => messageObj.eventtitle == eventObj.eventtitle);
+        console.log('eventMessageList: ', eventMessageList)
+        eventObj.content = eventMessageList
+        console.log('eventObj: ', eventObj)
+      })
+
+      console.log('events after insertion of attendees & messages: ', events.rows);
+      // res.locals.allEventsInfo = events.rows;
+      // console.log("res.locals.allEventsInfo", res.locals.allEventsInfo)
+      return events.rows;
+    } catch (err) {
+      console.log(err);
+    };
+  }
+  allEvents();
+}
 
 // getAllEventsUsersMessages();
 
