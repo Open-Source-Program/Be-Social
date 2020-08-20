@@ -135,18 +135,32 @@ export default function MainContainer() {
 
   return (
     <div className="myContainer">
-      <Notnav />
-      <div className="container">
-        <Container className="header">
+      <div className="topnav">
+        <Notnav className="notnav" />
+      </div>
+      <div className="columncontainer">
+        <div className="col1">
           <Profile {...user} />
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
-        </Container>
-        <EventsFeed
-          setEvents = {setEvents}
-          handleCreateMessage={handleCreateMessage}
-          events={events}
-          userUpdate={handleUserPageChange}
-        />
+          <Card.Body className="users">
+            <Card.Title>
+              <b className="otherusers">Active Users</b>
+            </Card.Title>
+            <Card.Text>
+              <div className="showusers">
+                No One Yet
+              </div>
+            </Card.Text>
+          </Card.Body>
+        </div>
+        <div className="col2">
+          <EventsFeed
+            setEvents={setEvents}
+            handleCreateMessage={handleCreateMessage}
+            events={events}
+            userUpdate={handleUserPageChange}
+          />
+        </div>
       </div>
     </div>
   );

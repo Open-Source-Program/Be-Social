@@ -60,9 +60,9 @@ import { Media, Form, Button } from 'react-bootstrap';
 //   );
 // }
 export default function Content(props) {
-  console.log('=========> Content.jsx props: ', props)
+  // console.log('=========> Content.jsx props: ', props)
   const [cont, setCont] = useState(props.content);
-  console.log('=========> Content.jsx cont: ', cont)
+  // console.log('=========> Content.jsx cont: ', cont)
   // console.log('=========> Content.jsx cont.length: ', cont.length)
   const [comment, setComment] = useState("")
   // let [messages, setMessages] = useState([]);
@@ -100,7 +100,7 @@ export default function Content(props) {
     document.getElementsByName('comment-form')[0].reset();
 
     props.handleCreateMessage(newContent);
-    const updatedCont = cont.push(newContent)
+    const updatedCont = [cont].concat(newContent)
 
     setCont(updatedCont)
     // window.location.reload(true);
@@ -119,7 +119,7 @@ export default function Content(props) {
           <Form.Label>Add a Comment:</Form.Label>
           <Form.Control as="textarea" rows="2" onChange={handleChange} />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
+        <Button id="submit" variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
           Submit
         </Button>
       </Form>
