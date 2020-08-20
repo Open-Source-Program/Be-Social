@@ -80,28 +80,28 @@ CREATE TABLE events
   );
   SELECT setval('eventsandmessages_uselessid_seq', 1, false);
 
-  CREATE TABLE recipes
-  (
-    "uselessid" serial PRIMARY KEY,
-    "recipename" varchar NOT NULL,
-    "recipeid" bigint NOT NULL,
-    "recipeimage" varchar,
-    UNIQUE (recipeid)
-  );
-  SELECT setval('recipes_uselessid_seq', 1, false);
+  -- CREATE TABLE recipes
+  -- (
+  --   "uselessid" serial PRIMARY KEY,
+  --   "recipename" varchar NOT NULL,
+  --   "recipeid" bigint NOT NULL,
+  --   "recipeimage" varchar,
+  --   UNIQUE (recipeid)
+  -- );
+  -- SELECT setval('recipes_uselessid_seq', 1, false);
 
 
-  CREATE TABLE ingredients
-  (
-    "uselessid" serial PRIMARY KEY,
-    "ingredientname" varchar NOT NULL,
-    "ingredientid" bigint NOT NULL,
-    "ingredientimage" varchar,
-    "recipeid" bigint NOT NULL,
-    UNIQUE (ingredientid),
-    FOREIGN KEY ( recipeid ) REFERENCES recipes (recipeid)
-  );
-  SELECT setval('ingredients_uselessid_seq', 1, false);
+  -- CREATE TABLE ingredients
+  -- (
+  --   "uselessid" serial PRIMARY KEY,
+  --   "ingredientname" varchar NOT NULL,
+  --   "ingredientid" bigint NOT NULL,
+  --   "ingredientimage" varchar,
+  --   "recipeid" bigint NOT NULL,
+  --   UNIQUE (ingredientid),
+  --   FOREIGN KEY ( recipeid ) REFERENCES recipes (recipeid)
+  -- );
+  -- SELECT setval('ingredients_uselessid_seq', 1, false);
 
 
   -- CREATE TABLE recipesandingredients
@@ -119,7 +119,7 @@ CREATE TABLE events
   -- );
   -- SELECT setval('recipesandingredients_uselessid_seq', 1, false);
 
--- DROP TABLE EVENTSANDMESSAGES;
--- DROP TABLE USERSANDEVENTS;
--- DROP TABLE EVENTS;
--- DROP TABLE USERS;
+  -- DROP TABLE EVENTSANDMESSAGES;
+  -- DROP TABLE USERSANDEVENTS;
+  -- DROP TABLE EVENTS;
+  -- DROP TABLE USERS;

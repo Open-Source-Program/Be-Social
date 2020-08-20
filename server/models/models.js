@@ -3,7 +3,7 @@ pg.defaults.poolSize = 100;
 
 const patty = 'postgres://wleysufm:pXsLZ76bqW-jjRNUkgLJHtxPWR2Dk002@raja.db.elephantsql.com:5432/wleysufm';
 const jen = 'postgres://kyvtwizd:fVABvmKeENO7jTd3IBKj1PiIcNyVylqD@raja.db.elephantsql.com:5432/kyvtwizd'
-const PG_URI = jen;
+const PG_URI = patty;
 
 const pool = new pg.Pool({
   connectionString: PG_URI,

@@ -19,35 +19,33 @@ export default function EventsFeed(props) {
     // setEvents(newEvents);
   }
 
-  function handleUpdateEvent(eventObj, index) {
-    console.log(props)
-    axios.put(`/api/update`);
-    console.log(props.events);
-    const newState = props.events.splice(index, 1);
-    console.log(props.events);
-    props.setEvents(newState);
+  function handleUpdateEvent(data) {
+    console.log('HANDLE UPDATE: ', data)
+    axios.put(`/api/update`, data);
+
 
     // const newEvents = [event].concat(events);
     // console.log("updated events:", newEvents);
     // setEvents(newEvents);
   }
-  
+
   console.log("Events Feed", props)
   let events = [];
   // useEffect(() => {
-    // console.log('THIS IS USE EFFECT')
-    if (props.events && Object.keys(props.events).length > 0) {
-      events = props.events.map((event, index) => {
-        return <Event
-          {...event}
-          handleDeleteEvent={handleDeleteEvent}
-          handleCreateMessage={props.handleCreateMessage}
-          userUpdate={props.userUpdate}
-          key={`EventsFeed${index}`}
-          index={index}
-        />
-      })
-    }
+  // console.log('THIS IS USE EFFECT')
+  if (props.events && Object.keys(props.events).length > 0) {
+    events = props.events.map((event, index) => {
+      return <Event
+        {...event}
+        handleUpdateEvent={handleUpdateEvent}
+        handleDeleteEvent={handleDeleteEvent}
+        handleCreateMessage={props.handleCreateMessage}
+        userUpdate={props.userUpdate}
+        key={`EventsFeed${index}`}
+        index={index}
+      />
+    })
+  }
   // },[])
 
   return (
