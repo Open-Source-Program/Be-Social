@@ -132,7 +132,7 @@ export default function SearchEvent({ searchEvent, events }) {
         <Modal.Body>
           <Form>
             <Form.Group controlId="formEventTitle">
-              <Form.Label>Please enter the event name below.</Form.Label>
+              <Form.Label>Please enter the event name below: </Form.Label>
               <Form.Control name='title' onChange={handleChange} required type="text" placeholder="Enter title" />
             </Form.Group>
             <div className='searchResults'>

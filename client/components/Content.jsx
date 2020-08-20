@@ -1,88 +1,78 @@
 import React, { useState, useEffect } from "react";
 import { Media, Form, Button } from 'react-bootstrap';
 
+<<<<<<< HEAD
 export default function Content({ eventmessages }) {
+=======
+// ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
+// ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
+// ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
+// ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
+// ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
+// export default function Content({ eventmessages }) {
+//   const [cont, setCont] = useState(eventmessages);
+//   const [comment, setComment] = useState("")
+>>>>>>> e338fe593d634e2aec99cd06af3fd44bff1c4434
 
-  // ====================== WHERE JEN'S NON-WORKING CODE BEGINS ======================
-  // ====================== WHERE JEN'S NON-WORKING CODE BEGINS ======================
-  // ====================== WHERE JEN'S NON-WORKING CODE BEGINS ======================
-  // ====================== WHERE JEN'S NON-WORKING CODE BEGINS ======================
-  // ====================== WHERE JEN'S NON-WORKING CODE BEGINS ======================
+//   let messages = [];
+//   if (cont) {
+//     messages = cont.map((message, index) => {
+//       return (
+//         <div className="messageBox" key={`Content${index}`}>
+//           <div className="userMessage">
+//             <img src={message.profilephoto}></img>
+//           </div>
+//           <div className="message" key={`Content${index}`} >
+//             <p className="messageName">{message.firstname} {message.lastname}</p>
+//             <p className="messageText">{message.text}</p>
+//             <p className="messageTime">{message.time}</p>
+//           </div>
+//         </div>
+//       )
+//     });
+//   }
 
-  //   let messages = [];
-  //   if (content) {
-  //     messages = content.map((message, index) => {
-  //       return (
-  //         <div className="messageBox" key={`Content${index}`}>
-  //           <div className="userMessage">
-  //             <img src={message.profilephoto}></img>
-  //           </div>
-  //           <div className="message" key={`Content${index}`} >
-  //             <p className="messageName">{message.firstname} {message.lastname}</p>
-  //             <p className="messageText">{message.text}</p>
-  //             <p className="messageTime">{message.time}</p>
-  //           </div>
-  //         </div>
-  //       )
-  //     });
-  //   }
+//   const handleChange = (e) => {
+//     setComment(e.target.value)
+//   }
 
-  //   function handleCommentSubmit(event) {
-  //     console.log("Content.jsx:", event)
+//   function handleCommentSubmit(e) {
+//     e.preventDefault();
+//     const date = new Date();
+//     const newContent = cont.concat([{ text: comment, time: date.toTimeString() }])
+//     setCont(newContent)
+//     //clear form data
+//     document.getElementsByName('comment-form')[0].reset();
+//   }
 
-  //     const incomingMessage = document.getElementsByName('comment-form').value;
-  //     // ADD
-  //     axios.post(`/api/add?eventtitle=${event.eventtitle}`)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         event.attendees.push(
-  //           {
-  //             username: user.username,
-  //             firstname: user.firstname,
-  //             lastname: user.lastname,
-  //             profilephoto: user.profilephoto
-  //           });
-  //         const newEvents = [event].concat(events);
-  //         console.log("updated events:", newEvents);
-  //         setEvents(newEvents);
-  //       })
-  //     // END ADD
-
-  //     //clear form data
-  //     document.getElementsByName('comment-form')[0].reset();
-  //   }
-
-
-  //   return (
-  //     <div className="eventContent">
-  //       <h4>Comments</h4>
-  //       <div className="messages">
-  //         {messages}
-  //       </div>
-  //       <Form name='comment-form'>
-  //         <Form.Group controlId="exampleForm.ControlTextarea1">
-  //           <Form.Label>Add a Comment:</Form.Label>
-  //           <Form.Control as="textarea" rows="2" />
-  //         </Form.Group>
-  //         <Button variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
-  //           Submit
-  //         </Button>
-  //       </Form>
-  //     </div>
-  //   );
-  // }
-
-  // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
-  // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
-  // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
-  // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
-  // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
-
-  const [cont, setCont] = useState(eventmessages);
+//   return (
+//     <div className="eventContent">
+//       <h4>Comments</h4>
+//       <div className="messages">
+//         {messages}
+//       </div>
+//       <Form name='comment-form'>
+//         <Form.Group controlId="exampleForm.ControlTextarea1">
+//           <Form.Label>Add a Comment:</Form.Label>
+//           <Form.Control as="textarea" rows="2" onChange={handleChange} />
+//         </Form.Group>
+//         <Button variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
+//           Submit
+//         </Button>
+//       </Form>
+//     </div>
+//   );
+// }
+export default function Content(props) {
+  // console.log('=========> Content.jsx props: ', props)
+  const [cont, setCont] = useState(props.content);
+  // console.log('=========> Content.jsx cont: ', cont)
+  // console.log('=========> Content.jsx cont.length: ', cont.length)
   const [comment, setComment] = useState("")
+  // let [messages, setMessages] = useState([]);
 
   let messages = [];
-  if (cont) {
+  if (cont && cont.length) {
     messages = cont.map((message, index) => {
       return (
         <div className="messageBox" key={`Content${index}`}>
@@ -90,9 +80,10 @@ export default function Content({ eventmessages }) {
             <img src={message.profilephoto}></img>
           </div>
           <div className="message" key={`Content${index}`} >
-            <p className="messageName">{message.firstname} {message.lastname}</p>
-            <p className="messageText">{message.text}</p>
-            <p className="messageTime">{message.time}</p>
+            <p className="messageName">{message.username} </p>
+            <p className="messageText">{message.messagetext}</p>
+            <p className="messageDate">{message.messagedate}</p>
+            <p className="messageTime">{message.messagetime}</p>
           </div>
         </div>
       )
@@ -100,18 +91,26 @@ export default function Content({ eventmessages }) {
   }
 
   const handleChange = (e) => {
-    setComment(e.target.value)
+    setComment(e.target.value);
   }
 
   function handleCommentSubmit(e) {
-    document.getElementsByName('comment-form')[0].value; // added
     e.preventDefault();
     const date = new Date();
-    const newContent = cont.concat([{ text: comment, time: date.toTimeString() }])
-    setCont(newContent)
+    // newContent is what we're posting back
+    const newContent = { eventid: props.eventid, eventtitle: props.eventtitle, messagetext: comment, messagedate: date.toDateString(), messagetime: date.toTimeString() }
+    console.log('Content.jsx newContent: ', newContent)
     //clear form data
     document.getElementsByName('comment-form')[0].reset();
+
+    props.handleCreateMessage(newContent);
+    const updatedCont = [cont].concat(newContent)
+
+    setCont(updatedCont)
+    // window.location.reload(true);
   }
+
+
 
   return (
     <div className="eventContent">
@@ -124,7 +123,7 @@ export default function Content({ eventmessages }) {
           <Form.Label>Add a Comment:</Form.Label>
           <Form.Control as="textarea" rows="2" onChange={handleChange} />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
+        <Button id="submit" variant="primary" type="submit" onClick={(e) => { handleCommentSubmit(e) }}>
           Submit
         </Button>
       </Form>

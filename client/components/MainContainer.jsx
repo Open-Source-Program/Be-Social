@@ -7,22 +7,23 @@ import { Card, Button, Col, Row, Container } from 'react-bootstrap';
 import AddSearchEvent from './AddSearchEvent.jsx';
 
 export default function MainContainer() {
-
-  const [userName, setUserName] = useState("");
-  const [user, setUser] = useState({});
+  // const [messages, setMessages] = useState([]);
+  const [userName, setUserName] = useState(""); // email?
+  const [user, setUser] = useState({}); // actual name of user
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/info?userName=${userName}`)
+    axios.get(`/api/info?userName=${userName}`) // currently query is not in use (save for when we can visit other ppl's pages)
       .then((res) => {
-        console.log(res.data);
+        console.log('get request in mainContainer.jsx, res data: ', res.data);
         let userInfo = {
+          userid: res.data.users.userid,
           username: res.data.users.username,
           firstname: res.data.users.firstname,
           lastname: res.data.users.lastname,
           profilephoto: res.data.users.profilephoto,
         }
-        let eventsInfo = res.data.events;
+        let eventsInfo = res.data.events; // content: already included in eventsInfo
         setUser(userInfo);
         setEvents(eventsInfo);
         setUserName(res.data.users.username);
@@ -35,8 +36,14 @@ export default function MainContainer() {
   }
 
   function handleCreateEvent(event) {
-    let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = event;
-    axios.post(`/api/create?userName=${userName}`, { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails })
+    let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, eventtype } = event;
+    console.log('MainContainer.jsx eventtitle: ', eventtitle)
+    console.log('MainContainer.jsx eventlocation OR INGREDIENT: ', eventlocation)
+    console.log('MainContainer.jsx eventtype: ', eventtype)
+    console.log('MainContainer.jsx eventdate: ', eventdate)
+    console.log('MainContainer.jsx eventstarttime: ', eventstarttime)
+    console.log('MainContainer.jsx eventdetails: ', eventdetails)
+    axios.post(`/api/create?userName=${userName}`, { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, eventtype })
       .then((res) => {
         console.log(res.data);
         // let userInfo = {
@@ -58,6 +65,37 @@ export default function MainContainer() {
     setEvents(newEvents);
   }
 
+  function handleCreateMessage(content) { // bubble this down to Content.jsx
+    let { userid, username } = user;
+    console.log('=======> handleCreateMessage userid: ', userid)
+    console.log('=======> handleCreateMessage userid: ', username)
+    let { eventid, eventtitle, messagetext, messagedate, messagetime } = content;
+    axios.post(`/api/message?eventtitle=${eventtitle}`, { userid, username, eventid, messagetext, messagedate, messagetime })
+      .then((res) => {
+        console.log(res.data);
+        // let userInfo = {
+        //   userName: res.data.users.username,
+        //   firstName: res.data.users.firstname,
+        //   lastName: res.data.users.lastname,
+        //   profilePicture: res.data.users.profilephoto,
+        // }
+        // let eventsInfo = res.data.events;
+        // setUser(userInfo);
+        // setEvents(eventsInfo);
+      })
+    event.content = [{
+      username: user.username,
+      profilephoto: user.profilephoto,
+      messagetext: messagetext,
+      messagedate: messagedate,
+      messagetime: messagetime,
+    }];
+    // const newEvents = [event].concat(events);
+    // console.log("updated event with messages:", newEvents);
+    // setEvents(newEvents);
+    // window.location.reload(true);
+  }
+
   function handleSearchEvent(event) {
     console.log("Main Container:", event)
     // ADD
@@ -71,6 +109,15 @@ export default function MainContainer() {
             lastname: user.lastname,
             profilephoto: user.profilephoto
           });
+        if (!events.content) event.content = [];
+        else {
+          event.content.push({
+            username: events.content.username,
+            profilephoto: events.content.profilephoto,
+            text: events.content.messagetext,
+            time: events.content.messagetime,
+          });
+        };
         const newEvents = [event].concat(events);
         console.log("updated events:", newEvents);
         setEvents(newEvents);
@@ -88,16 +135,32 @@ export default function MainContainer() {
 
   return (
     <div className="myContainer">
-      <Notnav />
-      <div className="container">
-        <Container className="header">
+      <div className="topnav">
+        <Notnav className="notnav" />
+      </div>
+      <div className="columncontainer">
+        <div className="col1">
           <Profile {...user} />
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
-        </Container>
-        <EventsFeed
-          events={events}
-          userUpdate={handleUserPageChange}
-        />
+          <Card.Body className="users">
+            <Card.Title>
+              <b className="otherusers">Active Users</b>
+            </Card.Title>
+            <Card.Text>
+              <div className="showusers">
+                No One Yet
+              </div>
+            </Card.Text>
+          </Card.Body>
+        </div>
+        <div className="col2">
+          <EventsFeed
+            setEvents={setEvents}
+            handleCreateMessage={handleCreateMessage}
+            events={events}
+            userUpdate={handleUserPageChange}
+          />
+        </div>
       </div>
     </div>
   );

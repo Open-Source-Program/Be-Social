@@ -46,6 +46,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "axios": "^0.19.2",
@@ -54,6 +55,7 @@
     "bootstrap": "^4.5.2",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
+    "fb": "^2.0.0",
     "googleapis": "^59.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
