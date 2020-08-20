@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
-const FB = require('fb')
+const FB = require('fb');
+require('dotenv').config();
 
 const fbController = {};
 
@@ -7,10 +8,11 @@ fbController.oAuth = (req, res, next) => {
 
   const redirect_uri = 'http://localhost:8080/api/login/FB'
   const app_id = 2445427332416583
+  // const app_id = process.env.FB_ID;
   const scope = 'public_profile,email'
 
   res.locals.url = `https://www.facebook.com/v8.0/dialog/oauth?client_id=${app_id}&redirect_uri=${redirect_uri}&scope=${scope}`
-  
+
   return next();
 };
 
@@ -19,8 +21,9 @@ fbController.afterConsent = (req, res, next) => {
   const code = req.query.code;
   const redirect_uri = 'http://localhost:8080/api/login/FB'
   const app_id = 2445427332416583
+  // const app_id = process.env.FB_ID;
   const client_secret = '6bd189482d27459c46d73ee1417a3126';
-  
+  // const client_secret = process.env.CLIENT_SECRET;
   const url = `https://graph.facebook.com/v8.0/oauth/access_token?client_id=${app_id}&redirect_uri=${redirect_uri}&client_secret=${client_secret}&code=${code}`
 
   fetch(url, {

@@ -3,7 +3,8 @@ import EventAttendees from './EventAttendees.jsx';
 import Content from './Content.jsx';
 import FileUpload from './Fileupload.jsx';
 import Media from './Media.jsx';
-import { ListGroup, Container, Row, Jumbotron, Button } from 'react-bootstrap';
+import DateTimePicker from 'react-datetime-picker';
+import { ListGroup, Container, Row, Jumbotron, Modal, Button, Form, Card, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
@@ -15,44 +16,39 @@ export default function Event(props) {
   const [progress, setProgess] = useState(0);
   const el = useRef();
 
+  const initialFormData = Object.freeze({
+    eventtitle: props.eventtitle,
+    eventlocation: props.eventlocation,
+    eventdetails: props.eventdetails,
+    eventtype: "calendar"
+  });
+  const [formData, updateFormData] = useState(initialFormData);
+  const [dateTime, onChange] = useState(new Date());
+  const [show, setShow] = useState(false);
+
   const handleChange = (e) => {
-    e.preventDefault();
-    setProgess(0);
-    setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
-  }
+    updateFormData({
+      ...formData,
 
-  const uploadFile = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    console.log('typeof file in uploadFile: ', typeof file)
-    console.log('file in uploadFile: ', file)
-    console.log('filename in uploadFile: ', filename)
-    console.log('typeof filename in uploadFile: ', typeof filename)
-    formData.append('file', file, filename);
+      // Trimming any whitespace
+      [e.target.name]: e.target.value.trim()
+    });
+  };
 
-    axios.post('/api/upload', formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      content: formData,
-      onUploadProgress: (ProgressEvent) => {
-        let progress = Math.round(
-          ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-        setProgess(progress);
-        console.log('=======> progress updated in state')
-      }
-    }).then(res => {
-      console.log(res);
-      getFile({
-        name: res.data.name,
-        path: '/' + res.data.path
-      })
-    }).catch(err => {
-      console.log('Fileupload.jsx error: ', err);
+  const handleSubmit = (e) => {
+    console.log('THIS IS HANDLE SUBMIT: ', formData)
+    e.preventDefault()
+    const eventdate = dateTime.toDateString();
+    let time = dateTime.toTimeString();
+    let eventstarttime = time.split(" ")[0];
+    // ... submit to API or something
+    props.handleUpdateEvent({ ...formData, eventdate, eventstarttime, eventid: props.eventid });
+    handleClose();
+    console.log('state of show', show)
+  };
 
-    })
-  }
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -66,7 +62,8 @@ export default function Event(props) {
               <h5>{props.eventlocation}</h5>
               <h6>{props.eventdetails}</h6>
             </Container>
-            <Button id='update' variant="secondary" type="submit" onClick={() => { props.handleUpdateEvent(props.eventObj, props.index) }}>
+            {/* <Button id='update' variant="secondary" type="submit" onClick={() => { props.handleUpdateEvent(props.eventObj, props.index) }}> */}
+            <Button id='update' variant="secondary" type="submit" onClick={handleShow}>
               Update
             </Button>
             <Button id='delete' variant="secondary" type="submit" onClick={() => { props.handleDeleteEvent(props.eventid, props.index) }}>
@@ -80,12 +77,56 @@ export default function Event(props) {
               userUpdate={props.userUpdate}
             />
           </div>
+
           <div className="eventBottom">
             <Content className="eventMessages" {...props} />
             <div className="mediaContainer">
               <FileUpload className="mediaUpload" />
             </div>
           </div>
+
+          <Content {...props} />
+          {/* Model Pop Up Box */}
+          <Modal show={show} onHide={handleClose} animation={true}>
+            <Modal.Header closeButton>
+              <Modal.Title>Create Calendar Event</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group controlId="formEventTitle">
+                  <Form.Label>Event Title</Form.Label>
+                  <Form.Control name='eventtitle' onChange={handleChange} required type="text" placeholder={props.eventtitle} />
+                </Form.Group>
+
+                <Form.Group controlId="formEventLocation">
+                  <Form.Label>Location</Form.Label>
+                  <Form.Control name='eventlocation' onChange={handleChange} required type="text" placeholder={props.eventlocation} />
+                </Form.Group>
+
+                <Form.Group controlId="formEventDescription">
+                  <Form.Label>Event Description</Form.Label>
+                  <Form.Control name='eventdetails' onChange={handleChange} required as="textarea" placeholder={props.eventdetails} />
+                </Form.Group>
+
+                <Form.Group controlId="formStartDateTime">
+                  <Form.Label>Start Date & Time</Form.Label>
+                  <DateTimePicker
+                    onChange={onChange}
+                    value={dateTime}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formEventType">
+                  <Form.Label>Event Type</Form.Label>
+                  <Form.Control name='eventtype' value="Calendar Event" />
+                </Form.Group>
+
+                <Button variant="primary" type="submit" onClick={(e) => { handleSubmit(e) }}>
+                  Submit
+            </Button>
+              </Form>
+            </Modal.Body>
+          </Modal>
         </Container>
       </div>
     </>

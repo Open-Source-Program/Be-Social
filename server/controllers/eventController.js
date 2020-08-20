@@ -28,18 +28,20 @@ eventController.updateEvent = (req, res, next) => {
   UPDATE events
   SET eventtitle = '${eventtitle}', 
   eventlocation = '${eventlocation}', 
-  eventdetails = '${eventdetails}'
+  eventdetails = '${eventdetails}',
+  eventstarttime = '${eventstarttime}', 
+  eventdate = '${eventdate}'
   WHERE eventid = ${eventid}
   RETURNING *;
 
   UPDATE usersandevents
   SET eventlocation = '${eventlocation}', 
-  eventdetails = '${eventdetails}'
+  eventdetails = '${eventdetails}',
+  eventstarttime = '${eventstarttime}', 
+  eventdate = '${eventdate}'
   WHERE eventid = ${eventid};
   `
 
-  // eventstarttime = ${eventstarttime}, 
-  // eventdate = '${eventdate}'
 
   // const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails];
   db.query(queryString)
@@ -358,10 +360,12 @@ eventController.createCooking = async (req, res, next) => {
         .then((data) => data.json())
         .then((data) => {
           console.log("result data.length", data.length);
+          if (data.length === 0) return res.send('NOT A VALID INGREDIENT')
           console.log("result data", data);
           const num = Math.floor(Math.random() * data.length);
           console.log('createCooking number randomizer: ', num)
           res.locals.recipe = data[num];
+
         })
         .catch((err) => console.log(err));
       // console.log('======> eventController.createCooking res.locals.recipe: ', res.locals.recipe);
@@ -414,7 +418,7 @@ eventController.createCooking = async (req, res, next) => {
       console.log('>>> eventController.createCooking ERR', err);
       return next({
         log: `Error occurred with queries.addtoUsersAndEvents OR eventController.createCooking middleware: ${err}`,
-        message: { err: "An error occured with SQL when adding to addtoUsersAndEvents table." },
+        message: { err: "An error occured with SQL when adding to cooking event table." },
       })
     }
   }

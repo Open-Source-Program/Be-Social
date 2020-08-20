@@ -81,10 +81,10 @@ router.get('/info',
 
 // LOGGING OUT
 
-router.use('/logout', // SWITCH THIS TO POST REQUEST!!
+router.get('/logout',
   cookieController.removeCookie,
   (req, res) => {
-    return res.status(200).json('Successful logout.');
+    return res.redirect('/');
   });
 
 // CREATE A NEW EVENT
