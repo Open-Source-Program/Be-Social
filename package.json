@@ -53,13 +53,17 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.2",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
     "fb": "^2.0.0",
+    "formidable": "^1.2.2",
     "googleapis": "^59.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "mini-css-extract-plugin": "^0.10.0",
+    "multer": "^1.4.2",
     "node-fetch": "^2.6.0",
     "pg": "^8.3.0",
     "react": "^16.13.1",
@@ -69,5 +73,6 @@
     "react-hot-loader": "^4.12.21",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
