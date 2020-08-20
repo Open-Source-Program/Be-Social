@@ -23,6 +23,11 @@ export default function Event(props) {
               <p>{props.eventdetails}</p>
             </Container>
           </Jumbotron>
+          <Container className='updateBtn'>
+            <Button className='float-right' variant="secondary" type="submit" onClick={() => { props.handleUpdateEvent(props.eventObj, props.index) }}>
+              Update
+            </Button>
+          </Container>
           <Container className='deleteBtn'>
             <Button className='float-right' variant="secondary" type="submit" onClick={() => { props.handleDeleteEvent(props.eventid, props.index) }}>
               Delete

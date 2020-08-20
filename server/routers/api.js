@@ -14,6 +14,14 @@ router.delete('/delete',
   }
 )
 
+//UPDATE EVENT
+router.put('/update',
+  eventController.updateEvent, 
+  (req, res) => {
+    // res.status(200).json(res.locals.updatedEvent);
+    res.status(200).send('success');
+  }
+);
 
 // EXISING USER LOGIN
 

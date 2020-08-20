@@ -19,6 +19,19 @@ export default function EventsFeed(props) {
     // setEvents(newEvents);
   }
 
+  function handleUpdateEvent(eventObj, index) {
+    console.log(props)
+    axios.put(`/api/update`);
+    console.log(props.events);
+    const newState = props.events.splice(index, 1);
+    console.log(props.events);
+    props.setEvents(newState);
+
+    // const newEvents = [event].concat(events);
+    // console.log("updated events:", newEvents);
+    // setEvents(newEvents);
+  }
+  
   console.log("Events Feed", props)
   let events = [];
   // useEffect(() => {

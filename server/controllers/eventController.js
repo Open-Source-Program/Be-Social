@@ -4,21 +4,58 @@ const e = require("express");
 const eventController = {};
 
 // DELETE EVENT
-eventController.deleteEvent = (req,res,next) => {
+eventController.deleteEvent = (req, res, next) => {
   const eventid = req.query.eventid
   const queryString = `
   DELETE FROM usersandevents WHERE eventid=${eventid};
+  DELETE FROM eventsandmessages WHERE eventid=${eventid};
   DELETE FROM events WHERE eventid = ${eventid};
   `
   db.query(queryString)
-  .catch(err => {
-    return next({
-      log: `Error occurred with queries.deleteEvent OR eventController.deleteEvent middleware: ${err}`,
-      message: { err: "An error occured with SQL when retrieving events information." },
-    });
-  })
+    .catch(err => {
+      return next({
+        log: `Error occurred with queries.deleteEvent OR eventController.deleteEvent middleware: ${err}`,
+        message: { err: "An error occured with SQL when retrieving events information." },
+      });
+    })
   next();
 }
+
+// UPDATE EVENT
+eventController.updateEvent = (req, res, next) => {
+  let { eventid, eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = req.body;
+  const queryString = `
+  UPDATE events
+  SET eventtitle = '${eventtitle}', 
+  eventlocation = '${eventlocation}', 
+  eventdetails = '${eventdetails}'
+  WHERE eventid = ${eventid}
+  RETURNING *;
+
+  UPDATE usersandevents
+  SET eventlocation = '${eventlocation}', 
+  eventdetails = '${eventdetails}'
+  WHERE eventid = ${eventid};
+  `
+
+  // eventstarttime = ${eventstarttime}, 
+  // eventdate = '${eventdate}'
+  
+  // const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails];
+  db.query(queryString)
+    .then(response => {
+      res.locals.updateduser = response[0].rows;
+      return next();
+    })
+    .catch(err => {
+      console.log('I AM THE ERRORR: ', err);
+      return next({
+        log: `Error occurred with queries.updateEvent OR eventController.updateEvent middleware: ${err}`,
+        message: { err: "An error occured with SQL when retrieving events information." },
+      });
+    });
+}
+
 
 
 eventController.getFullEvents = (req, res, next) => {
