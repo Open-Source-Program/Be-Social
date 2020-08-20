@@ -40,7 +40,7 @@ eventController.updateEvent = (req, res, next) => {
 
   // eventstarttime = ${eventstarttime}, 
   // eventdate = '${eventdate}'
-  
+
   // const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails];
   db.query(queryString)
     .then(response => {
@@ -136,21 +136,21 @@ eventController.createEvent = (req, res, next) => {
   //   db.query(queryString, queryValues)
   //     .then(data => {
   let { eventid, eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, eventtype } = req.body;
-  console.log('eventController.createEvent: eventtype: ', eventtype);
+  // console.log('eventController.createEvent: eventtype: ', eventtype);
   if (eventtype == "cooking") return next();
   if (eventtype == "calendar") {
-    console.log('eventController.createEvent ', req.body);
+    // console.log('eventController.createEvent ', req.body);
     const queryString = queries.createEvent;
     const queryValues = [eventtitle, eventdate, eventstarttime, eventstarttime, eventlocation, eventdetails, userid, username, "{}", eventtype];
     db.query(queryString, queryValues)
       .then(data => {
-        console.log('>>> eventController.createEvent DATA ', data);
+        // console.log('>>> eventController.createEvent DATA ', data);
         // data.rows: [ { eventid: 11 } ],
         res.locals.eventTitle = data.rows[0];
         return next();
       })
       .catch(err => {
-        console.log('>>> eventController.createEvent ERR ', err);
+        // console.log('>>> eventController.createEvent ERR ', err);
         return next({
           log: `Error occurred with queries.createEvent OR eventController.createEvent middleware: ${err}`,
           message: { err: "An error occured with SQL when creating event." },
@@ -328,16 +328,15 @@ Needed to use the req.cookie.user_id in order to determine which user is current
 // ==================== RECIPE API END ====================
 
 eventController.createCooking = async (req, res, next) => {
-
-  console.log('eventController.createCooking: req.body: ', req.body);
-  console.log('eventController.createCooking: req.query: ', req.query);
+  // console.log('eventController.createCooking: req.body: ', req.body);
+  // console.log('eventController.createCooking: req.query: ', req.query);
   const { eventid, eventtitle, eventdate, eventstarttime, eventendtime, eventlocation, eventdetails, eventtype } = req.body;
-  console.log('eventController.createCooking: eventtitle ', eventtitle);
-  console.log('eventController.createCooking: eventtype: ', eventtype);
-  console.log('eventController.createCooking: ingredient: ', eventlocation);
-  console.log('eventController.createCooking: eventdate: ', eventdate);
-  console.log('eventController.createCooking: eventstarttime: ', eventstarttime);
-  console.log('eventController.createCooking: eventdetails: ', eventdetails);
+  // console.log('eventController.createCooking: eventtitle ', eventtitle);
+  // console.log('eventController.createCooking: eventtype: ', eventtype);
+  // console.log('eventController.createCooking: ingredient: ', eventlocation);
+  // console.log('eventController.createCooking: eventdate: ', eventdate);
+  // console.log('eventController.createCooking: eventstarttime: ', eventstarttime);
+  // console.log('eventController.createCooking: eventdetails: ', eventdetails);
 
   res.locals.eventTitle = {};
   res.locals.eventTitle.eventtitle = eventtitle;
@@ -365,7 +364,7 @@ eventController.createCooking = async (req, res, next) => {
           res.locals.recipe = data[num];
         })
         .catch((err) => console.log(err));
-      console.log('======> eventController.createCooking res.locals.recipe: ', res.locals.recipe);
+      // console.log('======> eventController.createCooking res.locals.recipe: ', res.locals.recipe);
       const { id, title, image, usedIngredients } = res.locals.recipe;
       const recipeid = id;
       let ingredientList = [];
@@ -422,10 +421,10 @@ eventController.createCooking = async (req, res, next) => {
 };
 
 eventController.addNewEventToJoinTable = (req, res, next) => {
-  console.log('eventController.addNewEventToJoinTable')
+  // console.log('eventController.addNewEventToJoinTable')
   const queryString = queries.addNewEventToJoinTable;
   // const queryValues = [res.locals.eventID.eventid] // changed this to eventtitle
-  console.log('eventController.addNewEventToJoinTable res.locals.eventTitle.eventtitle', res.locals.eventTitle.eventtitle) // changed this to eventtitle
+  // console.log('eventController.addNewEventToJoinTable res.locals.eventTitle.eventtitle', res.locals.eventTitle.eventtitle) // changed this to eventtitle
   const queryValues = [res.locals.eventTitle.eventtitle] // changed this to eventtitle
   db.query(queryString, queryValues)
     .then(data => {
@@ -454,7 +453,7 @@ eventController.verifyAttendee = (req, res, next) => {
       for (const attendeeObj of data.rows) {
         attendees.push(attendeeObj.username);
       }
-      console.log(attendees);
+      // console.log('eventController.verifyAttendee attendees: ', attendees);
       if (attendees.includes(username)) {
         return next({
           log: `Error: User is already an attendee`,
@@ -576,7 +575,7 @@ eventController.allEvents = async (req, res, next) => {
       })
       res.locals.allEventsInfo = events.rows;
       // console.log('events after insertion of attendees & messages: ', events.rows);
-      console.log('eventController.allEvents hit and moving on!')
+      // console.log('eventController.allEvents hit and moving on!')
     }
     return next();
   } catch (err) {
@@ -596,7 +595,7 @@ eventController.getUserDetail = (req, res, next) => {
   })
 
   const allUsernames = res.locals.attendees.flat(Infinity);
-  console.log('FLATTENED USERNAMES', allUsernames);
+  // console.log('FLATTENED USERNAMES', allUsernames);
 
   const queryString = queries.userInfo;
 
@@ -647,7 +646,7 @@ eventController.filterForUser = (req, res, next) => {
   const { userid } = res.locals.allUserInfo
 
   const filtered = res.locals.allEventsInfo.filter(event => event.attendees.some(attendee => attendee.userid === userid))
-  console.log("eventController.filterForUser, filtered", filtered)
+  // console.log("eventController.filterForUser, filtered", filtered)
   res.locals.allEventsInfo = filtered;
   return next();
 }
@@ -660,16 +659,16 @@ eventController.addMessage = (req, res, next) => {
   const eventtitle = req.query.eventtitle;
   // console.log('eventController.addMessage eventtitle: ', eventtitle)
   const { userid, username, eventid, messagetext, messagedate, messagetime } = req.body;
-  console.log('hihihi');
+  // console.log('hihihi');
   const time2 = new Date(Date.now()).toISOString().replace('T', ' ').replace('Z', '');
-  console.log(time2);
+  // console.log(time2);
   // const dateObj = new Date(messagetime);
   // const converted = dateObj.toISOString();
-  console.log('ACTUAL TIME CONVERTED: ', time2);
+  // console.log('ACTUAL TIME CONVERTED: ', time2);
   const queryString = queries.addMessageToEvent;
   const queryValues = [userid, username, eventid, eventtitle, messagetext, messagedate, time2];
 
-  console.log('I AM JENNIFER: ', queryValues);
+  // console.log('I AM JENNIFER: ', queryValues);
 
   db.query(queryString, queryValues)
     .then(data => {

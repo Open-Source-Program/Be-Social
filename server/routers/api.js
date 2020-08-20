@@ -17,7 +17,7 @@ router.delete('/delete',
 
 //UPDATE EVENT
 router.put('/update',
-  eventController.updateEvent, 
+  eventController.updateEvent,
   (req, res) => {
     // res.status(200).json(res.locals.updatedEvent);
     res.status(200).send('success');
@@ -144,5 +144,33 @@ router.post('/message',
     return res.status(200).json('User successfully added a comment');
   }
 )
+
+router.post('/upload', (req, res) => {
+  console.log('server.js app.post /upload first line hitting?')
+  if (!req.files) {
+    return res.status(400).json({ msg: "File not uploaded" })
+  }
+  console.log('servers.js req.files: ', req.files)
+
+  // accessing the file
+  const myFile = req.files.file;
+  console.log('servers.js req.files.file: ', req.files.file)
+
+  //  mv() method places the file inside public directory
+  let pathName = `${path.resolve(__dirname, '../../client/uploads/') + '/' + myFile.name}`;
+  console.log('========> server.js pathName: ', pathName);
+
+  myFile.mv(pathName, function (err) {
+    if (err) {
+      console.log('server.js myFile.mv error: ', err)
+      return res.status(500).send({ msg: "server error occured" });
+    }
+    // returing the response with file path and name
+    // was res.send, changed to res.json
+    return res.json({ name: myFile.name, path: `../../client/uploads/${myFile.name}` }); // medium
+    // return res.json({ : myFile.name, filePath: `/uploads/${myFile.name}` }); // traversy
+  });
+})
+
 
 module.exports = router;
