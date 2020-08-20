@@ -8,12 +8,13 @@ import AddSearchEvent from './AddSearchEvent.jsx';
 
 export default function MainContainer() {
   // const [messages, setMessages] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [user, setUser] = useState({});
+  const [userName, setUserName] = useState(""); // email?
+  const [user, setUser] = useState({}); // actual name of user
   const [events, setEvents] = useState([]);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
-    axios.get(`/api/info?userName=${userName}`)
+    axios.get(`/api/info?userName=${userName}`) // currently query is not in use (save for when we can visit other ppl's pages)
       .then((res) => {
         console.log('get request in mainContainer.jsx, res data: ', res.data);
         let userInfo = {
@@ -27,8 +28,11 @@ export default function MainContainer() {
         setUser(userInfo);
         setEvents(eventsInfo);
         setUserName(res.data.users.username);
+        setStatus('loggedIn');
       })
   }, []);
+
+
 
   function handleUserPageChange(username) {
     console.log('username:', username)
@@ -36,8 +40,14 @@ export default function MainContainer() {
   }
 
   function handleCreateEvent(event) {
-    let { eventid, eventtitle, eventlocation, eventdate, eventstarttime, eventdetails } = event;
-    axios.post(`/api/create?userName=${userName}`, { eventid, eventtitle, eventlocation, eventdate, eventstarttime, eventdetails })
+    let { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, eventtype } = event;
+    console.log('MainContainer.jsx eventtitle: ', eventtitle)
+    console.log('MainContainer.jsx eventlocation OR INGREDIENT: ', eventlocation)
+    console.log('MainContainer.jsx eventtype: ', eventtype)
+    console.log('MainContainer.jsx eventdate: ', eventdate)
+    console.log('MainContainer.jsx eventstarttime: ', eventstarttime)
+    console.log('MainContainer.jsx eventdetails: ', eventdetails)
+    axios.post(`/api/create?userName=${userName}`, { eventtitle, eventlocation, eventdate, eventstarttime, eventdetails, eventtype })
       .then((res) => {
         console.log(res.data);
         // let userInfo = {
@@ -84,10 +94,10 @@ export default function MainContainer() {
       messagedate: messagedate,
       messagetime: messagetime,
     }];
-    const newEvents = [event].concat(events);
-    console.log("updated event with messages:", newEvents);
-    setEvents(newEvents);
-    window.location.reload(true);
+    // const newEvents = [event].concat(events);
+    // console.log("updated event with messages:", newEvents);
+    // setEvents(newEvents);
+    // window.location.reload(true);
   }
 
   function handleSearchEvent(event) {
@@ -103,12 +113,15 @@ export default function MainContainer() {
             lastname: user.lastname,
             profilephoto: user.profilephoto
           });
-        event.content.push({
-          username: events.content.username,
-          profilephoto: events.content.profilephoto,
-          text: events.content.messagetext,
-          time: events.content.messagetime,
-        });
+        if (!events.content) event.content = [];
+        else {
+          event.content.push({
+            username: events.content.username,
+            profilephoto: events.content.profilephoto,
+            text: events.content.messagetext,
+            time: events.content.messagetime,
+          });
+        };
         const newEvents = [event].concat(events);
         console.log("updated events:", newEvents);
         setEvents(newEvents);
@@ -126,17 +139,32 @@ export default function MainContainer() {
 
   return (
     <div className="myContainer">
-      <Notnav />
-      <div className="container">
-        <Container className="header">
+      <div className="topnav">
+        <Notnav className="notnav" status={status} />
+      </div>
+      <div className="columncontainer">
+        <div className="col1">
           <Profile {...user} />
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
-        </Container>
-        <EventsFeed
-          handleCreateMessage={handleCreateMessage}
-          events={events}
-          userUpdate={handleUserPageChange}
-        />
+          <Card.Body className="users">
+            <Card.Title>
+              <b className="otherusers">Active Users</b>
+            </Card.Title>
+            <Card.Text>
+              <div className="showusers">
+                No One Yet
+              </div>
+            </Card.Text>
+          </Card.Body>
+        </div>
+        <div className="col2">
+          <EventsFeed
+            setEvents={setEvents}
+            handleCreateMessage={handleCreateMessage}
+            events={events}
+            userUpdate={handleUserPageChange}
+          />
+        </div>
       </div>
     </div>
   );

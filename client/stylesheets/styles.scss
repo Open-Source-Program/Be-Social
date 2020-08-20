@@ -1,30 +1,226 @@
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script&family=Montserrat&family=Julius+Sans+One&family=Baloo+Tamma+2&family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Quicksand&family=Hi+Melody&family=Averia+Gruesa+Libre&family=Baloo+Bhai+2&family=Alata&family=Kulim+Park&family=Della+Respira&family=Stylish&family=Baumans&family=Abril+Fatface&family=Dancing+Script&family=Montserrat&family=Julius+Sans+One&family=Baloo+Tamma+2&family=Poiret+One&display=swap');
+
+html, body, .col1, .col2 {
+  height: 100%;
+  font-family: 'Nunito';
+}
 
 body {
   color:rgb(77, 77, 77);
+  background-color: #f0f2f5;
+  margin: 0;
+}
+
+.myContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: 40px;
+}
+
+.topnav {
+  width: 120px;
+}
+
+.columncontainer {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-self: center;
+}
+
+.navcontainer {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+}
+
+.container {
+  top: 120;
+  border-radius: 50px;
+  margin: 0;
+}
+
+.col1 {
+  position: fixed;
+  margin: 30px;
+  width: 28%;
+  min-width: 400px;
+  top: 120px;
+}
+
+.col2 {
+  margin-top: 70px;
+  background-color:#f0f2f5;
+  margin-left: 30%;
+  overflow: auto;
+  min-width: 800px;
+  width: 70%;
+  height: 200vh;
+  border-radius: 50px;
+}
+
+.navbar-light .navbar-brand {
+  color: white;
+  position: fixed;
+}
+
+.navbar-light:hover .navbar-brand:hover {
+  color: #fcfcfc;
+  outline: #fcfcfc solid 5px;
+  cursor: pointer;
 }
 
 .myNavbar {
+  background-color: #ffffff;
   // width: 90%;
-  background-color: rgb(129, 216, 208);
-  margin-bottom: 30px;
+  // background: linear-gradient(217deg, rgba(46, 112, 255, 0.8), rgba(255,0,0,0) 70.71%),
+  //           linear-gradient(127deg, rgba(10, 38, 82, 0.8), rgba(0,255,0,0) 70.71%),
+  //           linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  margin-bottom: 30px;   
+  height: 120px;
+  display: flex;
+  justify-items: center;
 }
 
 .navButton {
+  color: #74a4f2;
+  border: 1px solid #74a4f2;
+  margin: 8px;
+  border-radius: 20px;
+}
+
+.navButton:hover, .navButton:focus, .navButton:active {
+  background: radial-gradient(ellipse at left, #1876f2, transparent),
+            radial-gradient(ellipse at right, #74a4f2, transparent);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.navSignOut {
+  color: gray;
+  border: 1px solid gray;
+  margin: 8px;
+  border-radius: 20px;
+}
+
+.navSignOut:hover, .navSignOut:focus, .navSignOut:active {
+  background: radial-gradient(ellipse at left, gray, transparent),
+            radial-gradient(ellipse at right, lightgray, transparent);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.iconarea {
+  display: flex;
+  flex-direction: column;
+}
+.icon {
   color: white;
-  border: 1px solid white;
+  margin-top: 25px;
+  margin-left: 30px;
+  font-size: 48px;
+  background-color: transparent;
+  position: fixed;
+}
+
+.brand:hover, .brand:focus, .brand:active {
+  webkit-filter: blur(2px); 
+  filter: blur(2px);
+  cursor: pointer;
+}
+
+.letter:hover, .letter:focus, .letter:active {
+  webkit-filter: blur(4px); 
+  filter: blur(4px);
+  cursor: pointer;
 }
 
 .brand {
-  font-family: 'Dancing Script', cursive;
   font-size: 40px;
-  margin-bottom: 10px;
+  color: white;
+  margin: auto 0;
+  background: radial-gradient(ellipse at left, #1876f2, transparent),
+            radial-gradient(ellipse at right, #74a4f2, transparent);
+  border-radius: 50%;
+  line-height: 40px;
+  margin-left: 8px;
+  width: 100px;
+  height: 100px;
+  align-self: center;
+  justify-self: center;
 }
 
-.col {
-  display: flex;
-  align-content: center;
+.projectName {
+  font-family: 'Baumans';
+  font-size: 50px;
+  background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(77, 77, 77));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+span{
+	margin: 0 15px;
+	line-height: 40px;
+	text-shadow: 0 0 2px rgba(0, 0, 0, .45);
+  animation: span 4s ease-in infinite alternate;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  justify-items: center;
+  justify-content: center;
+  justify-self: center;
+  text-align: center;
+  // font-family: 'Baumans';
+  color: black;
+
+}
+.main{
+	display: flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  justify-items: center;
+  justify-content: center;
+  justify-self: center;
+  vertical-align: middle;
+  text-align: center;
+}
+.letter{
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  justify-items: center;
+  justify-content: center;
+  justify-self: center;
+  vertical-align: middle;
+  text-align: center;
+  margin: 4px;
+  margin-bottom: 8px;
+	height: 30px;
+  width: 27px;
+	/* border: 2.5px solid #FF1EAD; */
+  border: 3px dotted;
+  border-color: -webkit-linear-gradient(#eee, #333);
+	border-radius: 14px;
+	box-shadow:
+		0 0 2px rgba(0, 0, 0, .25),
+		inset 0 0 2px rgba(0, 0, 0, .25);
+
+  animation: letter 4s ease-in-out infinite alternate;
+  webkit-filter: blur(2px); 
+  filter: blur(2px);
+}
+@keyframes span {
+	0%,30%{ margin: 0 2px; }
+	70%,100%{ margin: 0 2px; }
+}
+@keyframes letter {
+	0%,30%{ width: 27px; }
+	70%,100%{ width: 5vw; }
+}
+
 .myCol {
   display: flex;
   justify-content: center;
@@ -32,43 +228,136 @@ body {
 
 .card {
   border: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.profilecard {
+  width: 100%;
+  justify-content: space-between;
 }
 
 .profile {
   display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-content: space-between;
   align-items: center;
-  border: 1px rgb(157, 189, 211) solid;
-  padding: 2em;
-  padding-left: 80px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px 1px rgb(129, 216, 208);
+  align-self: center;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 13px;
+  border-radius: 25px;
+  box-shadow: 1px 1px 2px 1px #ced0d4;
   background-color: rgb(250, 250, 250);
-  font-family: 'Poiret One', cursive;
+  font-family: 'Quicksand';
+}
+
+.profile:hover {
+  box-shadow: 2px 3px 6px #6d6d6d;
+  cursor: pointer;
 }
 
 .profile img {
+  border-radius: 22px;;
+  box-shadow: 1px 1px 2px 1px #ced0d4;
+  width: 200px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.profile img:hover {
+   box-shadow: 2px 3px 6px #6d6d6d;
+   cursor: pointer;
+}
+
+.name:hover {
+  font-weight: 700;
+   color: #1876f2;
+   cursor: pointer;
+}
+
+.staricon {
+  line-height: 12px;
+  height: 20px;
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+}
+
+.staricon:hover {
+  color: rgb(230, 214, 40);
+  cursor: pointer;
+}
+
+.users {
+  display: flex;
+  flex-direction: column;
+  margin-top: 33px;
+  background-color: rgb(250, 250, 250);
+  border-radius: 25px;
+  box-shadow: 1px 1px 2px 1px #ced0d4;
+  font-family: 'Quicksand';
+  height: 500px;
+}
+
+.users:hover {
+   box-shadow: 2px 3px 6px #6d6d6d;
+   cursor: pointer;
+}
+
+.dropdown-menu {
+  color: grey;
+  background: white;
   border-radius: 10px;
-  border: 3px solid rgb(129, 216, 208);
-  width: 150px;
+}
+
+.btn-success {
+  background-color: transparent;
+  border: 0.5px dotted rgb(203, 203, 203);
+  color: grey;
+  margin-bottom: 20px;;
+}
+
+.btn-success:hover {
+  background-color: transparent;
+  color: white;
+  margin-bottom: 20px;
+  outline: white;
+  box-shadow: 2px 3px 6px #6d6d6d;
+  cursor: pointer;
 }
 
 .cardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border: 1px gainsboro solid;
-  width: 150px;
-  height: 150px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 1px 1px gainsboro;
+  background: rgb(247, 248, 249);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 2px 1px 2px 1px gainsboro;
   text-align: center;
   padding-top: 25px;
   margin-top: 40px;
   margin-right: 25px;
-  font-family: 'Baloo Tamma 2'
+  font-family: 'Alata'
 }
-.cardContainer:hover{
-    // color: rgb(37, 13, 190);
-  background-color: #9ed0d8;
+.cardContainer:hover {
+  background: radial-gradient(ellipse at right, #1876f2, transparent),
+            radial-gradient(ellipse at left, #74a4f2, transparent);
+  border: none;
+  // outline: none;
   color: rgb(255, 255, 255);
   cursor: pointer;
+  box-shadow: 2px 3px 6px #6d6d6d;
 }
 
 .cardContainer p {
@@ -79,7 +368,9 @@ body {
 
 .event {
   border: 1px solid gainsboro;
- margin: 1em;
+  border-radius: 40px;
+  margin: 1em;
+  margin-left: 30px;
   padding: 1em;
   box-shadow: 1px 1px 1px 1px gainsboro;
   border-radius: 5px;
@@ -88,24 +379,120 @@ body {
 
 .jumbotron {
   // background-color: rgb(253, 238, 205);
-  border: 1px solid rgb(129, 216, 208);
-  box-shadow: 1px 1px 1px 1px gainsboro;
+  // border: 1px solid rgb(184, 184, 184);
+  padding: 10px;
+  border: none;
+  box-shadow: 2px 2px 2px 2px gainsboro;
   // background-color: transparent;
+  border-radius: 25px;
+  margin-top: 10px;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 300px;
+}
+
+.jumbotron:hover {
+    box-shadow: 2px 3px 6px #6d6d6d;
+   cursor: pointer;
 }
 
 .eventJumbotron {
   text-align: center;
-  font-family: 'Montserrat';
+  font-family: 'Quicksand';
 }
 
 .eventJumbotron h1 {
-  font-family: 'Abril Fatface';
+  font-family: 'Alata';
   letter-spacing: 3px;
   font-size: 60px;
 }
 
+// .float-right {
+//   margin: 10px;
+//   margin-right: 15px;
+// }
+
+#submit {
+  color: white;
+  background-color: #5e9cff;
+  padding: 6px 9px;
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+}
+
+#submit:hover {
+  background: radial-gradient(ellipse at right, #1876f2, transparent),
+            radial-gradient(ellipse at left, #74a4f2, transparent);
+  border: none;
+  cursor: pointer;
+}
+
+#update {
+  color: white;
+  background-color: #a8b4c4;
+  padding: 6px 9px;
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+}
+
+#update:hover {
+  background: radial-gradient(ellipse at right, #8a9fba, transparent),
+            radial-gradient(ellipse at left, #454b56, transparent);
+  border: none;
+  cursor: pointer;
+}
+
+#delete {
+  color: rgb(181, 181, 181);
+  margin-top: 6px;
+  padding: 5px 8px;
+  width: 100px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#delete:hover {
+  background: radial-gradient(ellipse at right, white),
+            radial-gradient(ellipse at left, #dfdfdf);
+  border: none;
+   webkit-filter: blur(1px); 
+  filter: blur(1px);
+}
+
+
 /* EventAttendees.jsx */
 
+.attendees {
+  background: #ffffff;
+  margin-top: 10px;
+  padding-top: 20px;
+  font-family: 'Alata';
+  box-shadow: 1px 1px 1px 1px gainsboro;
+  border-radius: 25px;
+}
+
+.attendees:hover {
+     box-shadow: 2px 3px 6px #6d6d6d;
+   cursor: pointer;
+}
+
+.attendeelist {
+  background: #ffffff;
+  z-index: 10;
+  margin-top: 10px;
+  padding-top: 20px;
+  font-family: 'Alata';
+  box-shadow: 1px 1px 1px 1px gainsboro;
+  border-radius: 15px;
+  width: 100%;
+}
 .circular {
   width: 85px;
   height: 85px;
@@ -128,6 +515,12 @@ body {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
+.circular:hover {
+   box-shadow: 2px 3px 6px #6d6d6d;
+   cursor: pointer;
+}
+
 
 .attendeesContainer h5 {
   text-align: center;
@@ -156,6 +549,17 @@ body {
 
 
 /* Content.jsx */
+
+.form-control {
+  border-radius: 15px;
+  width: 100%;
+}
+
+.form-control:hover, .form-control:focus, .form-control:active {
+  outline: none;
+  border: none;
+  box-shadow: 2px 3px 6px #cacaca;
+}
 
 .userMessage {
   width: 50px;
@@ -235,16 +639,16 @@ $barsize: 15px;
     transition: opacity 0.3s ease, animation 0.3s ease;
     background: linear-gradient(
         to right, 
-        #62efab 5%, 
-        #F2EA7D 15%, 
-        #F2EA7D 25%, 
-        #FF8797 35%, 
-        #FF8797 45%, 
-        #e1a4f4 55%, 
-        #e1a4f4 65%, 
-        #82fff4 75%, 
-        #82fff4 85%, 
-        #62efab 95%);
+        #d2d2d2 5%, 
+        #9f9f9f 15%, 
+        #595959 25%, 
+        #d0d0d0 35%, 
+        #a7a7a7 45%, 
+        #484848 55%, 
+        #747474 65%, 
+        #3a3a3a 75%, 
+        #6a6a6a 85%, 
+        #1a1a1a 95%);
     background-size: 200%;
     background-position: 0%;
     animation: bar 15s linear infinite;

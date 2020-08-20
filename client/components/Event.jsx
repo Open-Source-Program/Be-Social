@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import EventAttendees from './EventAttendees.jsx';
 import Content from './Content.jsx';
-import { ListGroup, Container, Row, Jumbotron } from 'react-bootstrap';
+import { ListGroup, Container, Row, Jumbotron, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
+import axios from "axios";
 
 export default function Event(props) {
   console.log('==========> Event from Event.jsx: ', props);
+
+
   return (
     <>
       <b className="hr anim"></b>
@@ -15,18 +18,24 @@ export default function Event(props) {
           <Jumbotron fluid>
             <Container className='eventJumbotron'>
               <h1>{props.eventtitle}</h1>
-              <h4>{props.eventdate} - {props.starttime}</h4>
-              <h4>Location <FontAwesomeIcon icon={faLocationArrow} size="1x" /> : {props.eventlocation}</h4>
+              <h3>{props.eventdate} - {props.starttime}</h3>
+              <h5>{props.eventlocation}</h5>
               <p>{props.eventdetails}</p>
             </Container>
+            <Button id='update' variant="secondary" type="submit" onClick={() => { props.handleUpdateEvent(props.eventObj, props.index) }}>
+              Update
+            </Button>
+            <Button id='delete' variant="secondary" type="submit" onClick={() => { props.handleDeleteEvent(props.eventid, props.index) }}>
+              Delete
+            </Button>
           </Jumbotron>
 
-          <Container>
-            <EventAttendees
+          <div className="attendees">
+            <EventAttendees className="attendeelist"
               {...props}
               userUpdate={props.userUpdate}
             />
-          </Container>
+          </div>
           <Content {...props} />
         </Container>
       </div>
