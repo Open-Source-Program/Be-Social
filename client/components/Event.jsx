@@ -33,6 +33,7 @@ export default function Event(props) {
       // Trimming any whitespace
       [e.target.name]: e.target.value.trim()
     });
+    windows.location.reload(true);
   };
 
   const handleSubmit = (e) => {
@@ -45,6 +46,7 @@ export default function Event(props) {
     props.handleUpdateEvent({ ...formData, eventdate, eventstarttime, eventid: props.eventid });
     handleClose();
     console.log('state of show', show)
+    windows.location.reload(true);
   };
 
   const handleClose = () => setShow(false);
@@ -85,7 +87,6 @@ export default function Event(props) {
             </div>
           </div>
 
-          <Content {...props} />
           {/* Model Pop Up Box */}
           <Modal show={show} onHide={handleClose} animation={true}>
             <Modal.Header closeButton>

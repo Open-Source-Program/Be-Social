@@ -17,6 +17,7 @@ export default function EventsFeed(props) {
     // const newEvents = [event].concat(events);
     // console.log("updated events:", newEvents);
     // setEvents(newEvents);
+    windows.location.reload(true);
   }
 
   function handleUpdateEvent(data) {
@@ -27,6 +28,7 @@ export default function EventsFeed(props) {
     // const newEvents = [event].concat(events);
     // console.log("updated events:", newEvents);
     // setEvents(newEvents);
+    windows.location.reload(true);
   }
 
   console.log("Events Feed", props)

@@ -85,9 +85,9 @@ export default function CreateEvent({ addEvent }) {
     <div>
       <div className='cardContainer'>
         <Dropdown as={ButtonGroup}>
-          <Button variant="success">Select Event Type</Button>
+          <Button id="dropdownbutton" className="btnsuccess">Select Event Type</Button>
 
-          <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
+          <Dropdown.Toggle className="btnsuccess" id="dropdowntoggle" />
 
           <Dropdown.Menu>
             <Dropdown.Item onClick={handleShow2}>Cook Off</Dropdown.Item>
