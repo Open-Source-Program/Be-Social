@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import EventAttendees from './EventAttendees.jsx';
 import Content from './Content.jsx';
 import FileUpload from './Fileupload.jsx';
-import Media from './Media.jsx';
 import DateTimePicker from 'react-datetime-picker';
 import { ListGroup, Container, Row, Jumbotron, Modal, Button, Form, Card, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
