@@ -11,6 +11,7 @@ export default function MainContainer() {
   const [userName, setUserName] = useState(""); // email?
   const [user, setUser] = useState({}); // actual name of user
   const [events, setEvents] = useState([]);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     axios.get(`/api/info?userName=${userName}`) // currently query is not in use (save for when we can visit other ppl's pages)
@@ -27,8 +28,11 @@ export default function MainContainer() {
         setUser(userInfo);
         setEvents(eventsInfo);
         setUserName(res.data.users.username);
+        setStatus('loggedIn');
       })
   }, []);
+
+
 
   function handleUserPageChange(username) {
     console.log('username:', username)
@@ -136,7 +140,7 @@ export default function MainContainer() {
   return (
     <div className="myContainer">
       <div className="topnav">
-        <Notnav className="notnav" />
+        <Notnav className="notnav" status={status} />
       </div>
       <div className="columncontainer">
         <div className="col1">

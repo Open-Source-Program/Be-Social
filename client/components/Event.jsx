@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import EventAttendees from './EventAttendees.jsx';
 import Content from './Content.jsx';
+import FileUpload from './Fileupload.jsx';
+import Media from './Media.jsx';
 import DateTimePicker from 'react-datetime-picker';
 import { ListGroup, Container, Row, Jumbotron, Modal, Button, Form, Card, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,7 +10,11 @@ import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
 
 export default function Event(props) {
-  console.log('==========> Event from Event.jsx: ', props);
+  const [file, setFile] = useState('');
+  const [filename, setFilename] = useState('Choose File');
+  const [data, getFile] = useState({ name: "", path: "" });
+  const [progress, setProgess] = useState(0);
+  const el = useRef();
 
   const initialFormData = Object.freeze({
     eventtitle: props.eventtitle,
@@ -54,7 +60,7 @@ export default function Event(props) {
               <h1>{props.eventtitle}</h1>
               <h3>{props.eventdate} - {props.starttime}</h3>
               <h5>{props.eventlocation}</h5>
-              <p>{props.eventdetails}</p>
+              <h6>{props.eventdetails}</h6>
             </Container>
             {/* <Button id='update' variant="secondary" type="submit" onClick={() => { props.handleUpdateEvent(props.eventObj, props.index) }}> */}
             <Button id='update' variant="secondary" type="submit" onClick={handleShow}>
@@ -71,8 +77,15 @@ export default function Event(props) {
               userUpdate={props.userUpdate}
             />
           </div>
-          <Content {...props} />
 
+          <div className="eventBottom">
+            <Content className="eventMessages" {...props} />
+            <div className="mediaContainer">
+              <FileUpload className="mediaUpload" />
+            </div>
+          </div>
+
+          <Content {...props} />
           {/* Model Pop Up Box */}
           <Modal show={show} onHide={handleClose} animation={true}>
             <Modal.Header closeButton>

@@ -1,11 +1,11 @@
 const db = require("../models/models.js");
 const queries = require("../utils/queries");
+const fileController = {};
+const FB = require('fb')
 const jwtDecode = require('jwt-decode');
 // const { serviceusage } = require("googleapis/build/src/apis/serviceusage");
 // const e = require("express");
-const fileController = {};
-const fetch = require('node-fetch');
-const FB = require('fb')
+// const fetch = require('node-fetch');
 
 fileController.createUser = async (req, res, next) => {
   
@@ -25,7 +25,7 @@ fileController.createUser = async (req, res, next) => {
           email = response.email;
           given_name = response.name.split(' ')[0];
           family_name = response.name.split(' ')[1];
-          picture = '../../dist/Panda.jpg'; // NOT SURE IF THIS WORKS.
+          picture = '../../client/assets/Codesmith.png';
           
           const queryString1 = queries.userInfo;
           const queryValues1 = [email];
