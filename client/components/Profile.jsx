@@ -21,7 +21,7 @@ export default function Profile(props) {
               <FontAwesomeIcon className="staricon" icon={faStarHalf} />
             </span>
           </Card.Title>
-          <Card.Text>
+          <Card.Text className="profileText">
             <p>
               <b>last logged in: </b><em>{new Date().toDateString()}</em><br />
               <b>username: </b><em>{props.username}</em><br />

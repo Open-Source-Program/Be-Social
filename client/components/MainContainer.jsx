@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Profile from './Profile.jsx';
+import Chatroom from './Chatroom.jsx';
 import EventsFeed from './EventsFeed.jsx';
 import Notnav from './Navbar.jsx';
 import axios from 'axios';
@@ -12,6 +13,24 @@ export default function MainContainer() {
   const [user, setUser] = useState({}); // actual name of user
   const [events, setEvents] = useState([]);
   const [status, setStatus] = useState("");
+  const [dummyData, setDummyData] = useState([
+    {
+      senderId: "take out trash",
+      text: "feed the dogs"
+    },
+    {
+      senderId: "fix back patio door",
+      text: "water the plants, all 144"
+    },
+    {
+      senderId: "fix back patio door",
+      text: "get haircut"
+    },
+    {
+      senderId: "fix back patio door",
+      text: "catch up on correspondence"
+    },
+  ]);
 
   useEffect(() => {
     axios.get(`/api/info?userName=${userName}`) // currently query is not in use (save for when we can visit other ppl's pages)
@@ -97,7 +116,7 @@ export default function MainContainer() {
     // const newEvents = [event].concat(events);
     // console.log("updated event with messages:", newEvents);
     // setEvents(newEvents);
-    // window.location.reload(true);
+    window.location.reload(true);
   }
 
   function handleSearchEvent(event) {
@@ -148,11 +167,12 @@ export default function MainContainer() {
           <AddSearchEvent addEvent={handleCreateEvent} searchEvent={handleSearchEvent} events={events} />
           <Card.Body className="users">
             <Card.Title>
-              <b className="otherusers">Active Users</b>
+              <h4 id="usersTitle">Scratch Pad</h4>
+              <Chatroom messages={dummyData} />
             </Card.Title>
             <Card.Text>
               <div className="showusers">
-                No One Yet
+
               </div>
             </Card.Text>
           </Card.Body>
