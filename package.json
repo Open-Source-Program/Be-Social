@@ -28,6 +28,8 @@
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
     "css-loader": "^4.2.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
     "file-loader": "^6.0.0",
     "file-system": "^2.2.2",
     "html-webpack-plugin": "^4.3.0",

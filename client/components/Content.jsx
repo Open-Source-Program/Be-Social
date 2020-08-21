@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Media, Form, Button } from 'react-bootstrap';
 
-<<<<<<< HEAD
-export default function Content({ eventmessages }) {
-=======
 // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
 // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
 // ====================== WHERE STELLA'S WORKING CODE BEGINS ======================
@@ -12,7 +9,6 @@ export default function Content({ eventmessages }) {
 // export default function Content({ eventmessages }) {
 //   const [cont, setCont] = useState(eventmessages);
 //   const [comment, setComment] = useState("")
->>>>>>> e338fe593d634e2aec99cd06af3fd44bff1c4434
 
 //   let messages = [];
 //   if (cont) {
