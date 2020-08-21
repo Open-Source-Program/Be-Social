@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Notnav from '../client/components/Navbar.js';
+import Notnav from '../client/components/Navbar';
 // import toJson from 'enzyme-to-json';
 
 // Newer Enzyme versions require an adapter to a particular version of React
